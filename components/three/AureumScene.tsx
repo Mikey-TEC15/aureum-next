@@ -224,17 +224,16 @@ const FRAG = /* glsl */ `
 interface ParticlesProps {
   target: FormationKey
   mouse:  React.MutableRefObject<{ x: number; y: number }>
-  shift:  React.MutableRefObject<boolean>
 }
 
-function Particles({ target, mouse, shift }: ParticlesProps) {
+function Particles({ target, mouse }: ParticlesProps) {
   const groupRef   = useRef<THREE.Group>(null)
   const morphT     = useRef(1)
   const prevTarget = useRef<FormationKey>('sphere')
   const rotX       = useRef(0)
   const rotY       = useRef(0)
   const autoY      = useRef(0)
-  const posX       = useRef(0) // current interpolated X position
+  const posX       = useRef(0)
 
   const { geo, mat } = useMemo(() => {
     const init   = getFormation('sphere')
@@ -307,8 +306,8 @@ function Particles({ target, mouse, shift }: ParticlesProps) {
       mat.uniforms.uT.value = morphT.current
     }
 
-    // Smooth position shift — slides right when in proceso/contacto
-    const targetX = shift.current ? 5.5 : 0
+    // Resting position offset to the right — keeps sphere clear of left-side title
+    const targetX = 1.8
     posX.current += (targetX - posX.current) * 0.04
     groupRef.current.position.x = posX.current
 
@@ -346,11 +345,11 @@ const SHIFT_SECTIONS = new Set(['proceso', 'contacto'])
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 export default function AureumScene() {
-  const [target, setTarget] = useState<FormationKey>('sphere')
-  const mouse               = useRef({ x: 0, y: 0 })
-  const shift               = useRef(false)
-  const activeSection       = useRef('inicio')
-  const timer               = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const [target, setTarget]   = useState<FormationKey>('sphere')
+  const [visible, setVisible] = useState(true)
+  const mouse                 = useRef({ x: 0, y: 0 })
+  const activeSection         = useRef('inicio')
+  const timer                 = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -380,7 +379,7 @@ export default function AureumScene() {
 
       activeSection.current = section
       const next = (SECTION_FORMATIONS[section] ?? 'sphere') as FormationKey
-      shift.current = SHIFT_SECTIONS.has(section)
+      setVisible(!SHIFT_SECTIONS.has(section))
 
       clearTimeout(timer.current)
       setTarget('scatter')
@@ -395,10 +394,13 @@ export default function AureumScene() {
   }, [])
 
   return (
-    // z-index: -1 → paints behind non-positioned elements (white sections cover it naturally)
     <div
       aria-hidden
-      style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: -1 }}
+      style={{
+        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: -1,
+        opacity: visible ? 1 : 0,
+        transition: 'opacity 0.8s ease',
+      }}
     >
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
@@ -406,7 +408,7 @@ export default function AureumScene() {
         dpr={[1, 1.5]}
         onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
       >
-        <Particles target={target} mouse={mouse} shift={shift} />
+        <Particles target={target} mouse={mouse} />
       </Canvas>
     </div>
   )
