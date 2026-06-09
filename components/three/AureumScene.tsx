@@ -337,15 +337,12 @@ const SECTION_FORMATIONS: Record<string, FormationKey> = {
   contacto:  'logo',
 }
 
-const SHIFT_SECTIONS = new Set(['proceso', 'contacto'])
-
 // ─── Main export ──────────────────────────────────────────────────────────────
 export default function AureumScene() {
-  const [target, setTarget]   = useState<FormationKey>('sphere')
-  const [visible, setVisible] = useState(true)
-  const mouse                 = useRef({ x: 0, y: 0 })
-  const activeSection         = useRef('inicio')
-  const timer                 = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const [target, setTarget] = useState<FormationKey>('sphere')
+  const mouse               = useRef({ x: 0, y: 0 })
+  const activeSection       = useRef('inicio')
+  const timer               = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -375,7 +372,6 @@ export default function AureumScene() {
 
       activeSection.current = section
       const next = (SECTION_FORMATIONS[section] ?? 'sphere') as FormationKey
-      setVisible(!SHIFT_SECTIONS.has(section))
 
       clearTimeout(timer.current)
       setTarget('scatter')
@@ -392,11 +388,7 @@ export default function AureumScene() {
   return (
     <div
       aria-hidden
-      style={{
-        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: -1,
-        opacity: visible ? 1 : 0,
-        transition: 'opacity 0.8s ease',
-      }}
+      style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: -1 }}
     >
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
