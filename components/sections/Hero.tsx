@@ -86,7 +86,7 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-10 pt-28 pb-20">
-        <div className="flex items-center min-h-[calc(100vh-7rem)]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center min-h-[calc(100vh-7rem)]">
 
           {/* ── Text ── */}
           <motion.div
@@ -94,7 +94,6 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             style={{ y: contentY }}
-            className="max-w-2xl"
           >
             {/* Eyebrow */}
             <motion.div
@@ -192,6 +191,9 @@ export default function Hero() {
               </div>
             </motion.div>
           </motion.div>
+
+          {/* Right column — empty, background canvas fills it */}
+          <div className="hidden lg:block" />
 
         </div>
       </div>

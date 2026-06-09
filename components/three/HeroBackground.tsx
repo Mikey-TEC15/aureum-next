@@ -29,8 +29,8 @@ export default function HeroBackground() {
 
     function resize() {
       if (!canvas) return
-      W = canvas.width = canvas.offsetWidth
-      H = canvas.height = canvas.offsetHeight
+      W = canvas.width = canvas.parentElement?.offsetWidth ?? window.innerWidth
+      H = canvas.height = canvas.parentElement?.offsetHeight ?? window.innerHeight
       build()
     }
 
@@ -39,7 +39,7 @@ export default function HeroBackground() {
       const count = Math.floor((W * H) / 9000)
       for (let i = 0; i < count; i++) {
         // Bias toward right half
-        const x = W * 0.42 + Math.random() * W * 0.62
+        const x = W * 0.50 + Math.random() * W * 0.55
         const y = Math.random() * H
         const a = 0.15 + Math.random() * 0.55
         particles.push({
