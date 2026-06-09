@@ -4,6 +4,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
 import TextReveal from '@/components/motion/TextReveal'
+import { WA } from '@/lib/whatsapp'
 
 const E = [0.23, 1, 0.32, 1] as const
 
@@ -131,7 +132,7 @@ export default function Contact() {
         {/* WhatsApp — dominant primary channel */}
         <motion.a
           {...fadeUp(0.12)}
-          href="https://wa.me/5534347955"
+          href={WA.contact}
           target="_blank"
           rel="noopener noreferrer"
           className="group block mb-4 overflow-hidden"
@@ -164,9 +165,20 @@ export default function Contact() {
               <p className="font-display font-bold text-white leading-tight mb-2" style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)', letterSpacing: '-0.02em' }}>
                 Escribir ahora
               </p>
-              <p className="font-body text-white/35 text-[0.75rem]">
-                Respuesta en menos de 2 horas
-              </p>
+              <div className="flex items-center gap-2">
+                {/* Indicador de disponibilidad */}
+                <span className="relative flex h-2 w-2 flex-shrink-0">
+                  <motion.span
+                    className="absolute inline-flex h-full w-full rounded-full bg-[#22c55e]"
+                    animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
+                    transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                  />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#22c55e]" />
+                </span>
+                <p className="font-body text-white/35 text-[0.75rem]">
+                  Activo ahora · Respuesta en &lt;2 h
+                </p>
+              </div>
             </div>
 
             {/* Center: chat preview */}
@@ -271,7 +283,7 @@ export default function Contact() {
         <motion.div {...fadeUp(0.38)} className="mt-14 text-center">
           <MagneticButton strength={0.22}>
             <motion.a
-              href="https://wa.me/5534347955"
+              href={WA.contact}
               target="_blank"
               rel="noopener noreferrer"
               whileTap={{ scale: 0.96 }}

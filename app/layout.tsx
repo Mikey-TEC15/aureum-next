@@ -6,6 +6,7 @@ import ScrollProgress from '@/components/ScrollProgress'
 import Navbar from '@/components/Navbar'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SectionProgress from '@/components/SectionProgress'
+import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -50,6 +51,7 @@ export default function RootLayout({
           <SectionProgress />
           <Navbar />
           <main>{children}</main>
+          <FloatingWhatsApp />
         </LenisProvider>
       </body>
     </html>

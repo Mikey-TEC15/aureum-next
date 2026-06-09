@@ -1,9 +1,11 @@
 'use client'
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 import { useReveal } from '@/hooks/useReveal'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { WA } from '@/lib/whatsapp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -306,6 +308,23 @@ function StepPanel({
                 {step.duration}
               </span>
             </motion.div>
+
+            {/* CTA final — solo en el último paso (Escalamiento) */}
+            {index === steps.length - 1 && (
+              <motion.a
+                href={WA.process}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 8 }}
+                animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                transition={{ duration: 0.45, delay: active ? 0.4 : 0, ease: E }}
+                className="mt-9 inline-flex items-center gap-2 bg-gold text-ink font-body font-semibold label-sm px-7 py-3.5 hover:bg-gold-light transition-colors duration-200"
+                style={{ borderRadius: 9 }}
+              >
+                Empezar ahora
+                <ArrowRight size={13} strokeWidth={2.5} />
+              </motion.a>
+            )}
           </div>
         </div>
 

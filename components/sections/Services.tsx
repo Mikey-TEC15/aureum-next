@@ -1,9 +1,18 @@
 'use client'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 import { useReveal } from '@/hooks/useReveal'
 import TextReveal from '@/components/motion/TextReveal'
 import { springs } from '@/lib/motion'
+import { WA } from '@/lib/whatsapp'
+
+const SERVICE_WA: Record<string, string> = {
+  leads: WA.leads,
+  meta:  WA.meta,
+  web:   WA.web,
+  ai:    WA.ai,
+}
 
 const E = [0.23, 1, 0.32, 1] as const
 
@@ -393,6 +402,20 @@ function ServicePanel({
               {service.statLabel}
             </span>
           </div>
+
+          {/* Micro-CTA por servicio */}
+          <a
+            href={SERVICE_WA[service.id]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-1.5 font-body group transition-colors duration-200"
+            style={{ fontSize: '0.72rem', color: 'rgba(212,175,55,0.5)' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#D4AF37')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(212,175,55,0.5)')}
+          >
+            Quiero este servicio
+            <ArrowRight size={11} strokeWidth={2} className="transition-transform group-hover:translate-x-0.5" />
+          </a>
         </div>
       </div>
     </div>
@@ -443,7 +466,7 @@ function MobilePanel({ service, open, onToggle }: { service: (typeof services)[0
               <p className="font-body text-white/40 leading-[1.75] mb-6" style={{ fontSize: '0.85rem' }}>
                 {service.description}
               </p>
-              <div className="flex items-baseline gap-2 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+              <div className="flex items-baseline gap-2 pt-4 mb-5" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                 <span className="font-display font-bold text-gold" style={{ fontSize: '1.8rem', letterSpacing: '-0.03em' }}>
                   {service.stat}
                 </span>
@@ -451,6 +474,16 @@ function MobilePanel({ service, open, onToggle }: { service: (typeof services)[0
                   {service.statLabel}
                 </span>
               </div>
+              <a
+                href={SERVICE_WA[service.id]}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-gold text-ink font-body font-semibold label-sm px-5 py-2.5 hover:bg-gold-light transition-colors duration-200"
+                style={{ borderRadius: 7, fontSize: '0.72rem' }}
+              >
+                Quiero este servicio
+                <ArrowRight size={12} strokeWidth={2.5} />
+              </a>
             </div>
           </motion.div>
         )}

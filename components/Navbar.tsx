@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { WA } from '@/lib/whatsapp'
 
 const E = [0.23, 1, 0.32, 1] as const
 
@@ -79,14 +80,16 @@ export default function Navbar() {
           {/* CTA */}
           <div className="flex items-center gap-3">
             <motion.a
-              href="#contacto"
+              href={WA.navbar}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.45, ease: E }}
               className="hidden md:inline-flex pressable items-center gap-1.5 bg-gold text-ink label-sm font-semibold px-5 py-2.5 hover:bg-gold-light transition-colors duration-200"
               style={{ borderRadius: 8 }}
             >
-              Agendar Consulta
+              Consulta Gratis
             </motion.a>
             <button
               onClick={() => setOpen(true)}
@@ -139,12 +142,14 @@ export default function Navbar() {
             </nav>
             <div className="mt-auto">
               <a
-                href="#contacto"
+                href={WA.navbar}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setOpen(false)}
                 className="flex justify-center items-center bg-gold text-ink font-body font-semibold label-sm py-4"
                 style={{ borderRadius: 10 }}
               >
-                Agendar Consulta
+                Consulta Gratis por WhatsApp
               </a>
             </div>
           </motion.div>
