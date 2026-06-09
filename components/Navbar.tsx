@@ -7,9 +7,9 @@ const E = [0.23, 1, 0.32, 1] as const
 
 const links = [
   { label: 'Servicios', href: '#servicios' },
-  { label: 'Proceso', href: '#proceso' },
-  { label: 'Casos', href: '#casos' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Proceso',   href: '#proceso'   },
+  { label: 'Casos',     href: '#casos'     },
+  { label: 'Contacto',  href: '#contacto'  },
 ]
 
 export default function Navbar() {
@@ -33,28 +33,35 @@ export default function Navbar() {
         <div
           className="max-w-7xl mx-auto flex items-center justify-between transition-all duration-500"
           style={{
-            background: scrolled ? 'rgba(13,13,13,0.88)' : 'transparent',
-            backdropFilter: scrolled ? 'blur(24px)' : 'none',
-            WebkitBackdropFilter: scrolled ? 'blur(24px)' : 'none',
-            borderRadius: scrolled ? '14px' : '0',
-            padding: scrolled ? '0.65rem 1.5rem' : '0',
-            border: scrolled ? '1px solid rgba(255,255,255,0.055)' : 'none',
+            background:         scrolled ? 'rgba(10,10,10,0.86)' : 'transparent',
+            backdropFilter:     scrolled ? 'blur(20px) saturate(180%)' : 'none',
+            WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+            borderRadius:       scrolled ? '12px' : '0',
+            padding:            scrolled ? '0.6rem 1.4rem' : '0',
+            border:             scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none',
           }}
         >
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#C9A035] to-[#E8CC6A] flex items-center justify-center flex-shrink-0">
-              <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
-                <path d="M8 1L10.2 5.9L15.6 6.5L11.8 10.1L12.8 15.5L8 12.7L3.2 15.5L4.2 10.1L0.4 6.5L5.8 5.9L8 1Z" fill="#111"/>
+          <a href="#" className="flex items-center gap-2.5 group">
+            <div
+              className="w-5 h-5 flex items-center justify-center flex-shrink-0"
+              style={{
+                background: 'linear-gradient(135deg, #C9A035 0%, #E8CC6A 100%)',
+                borderRadius: 4,
+              }}
+              aria-hidden
+            >
+              <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1L10.2 5.9L15.6 6.5L11.8 10.1L12.8 15.5L8 12.7L3.2 15.5L4.2 10.1L0.4 6.5L5.8 5.9L8 1Z" fill="#0F0F0F"/>
               </svg>
             </div>
-            <span className="font-display font-bold text-sm tracking-[0.06em] text-white">
+            <span className="font-display font-bold text-[0.82rem] tracking-[0.08em] text-white">
               AUREUM <span className="text-gold">STUDIO</span>
             </span>
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {links.map((l, i) => (
               <motion.a
                 key={l.href}
@@ -62,7 +69,7 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.08 + i * 0.05, duration: 0.4, ease: E }}
-                className="gold-link text-xs font-body text-white/50 hover:text-white uppercase tracking-widest transition-colors duration-200"
+                className="gold-link label-sm text-white/40 hover:text-white/80 transition-colors duration-200"
               >
                 {l.label}
               </motion.a>
@@ -73,19 +80,20 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <motion.a
               href="#contacto"
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.45, ease: E }}
-              className="hidden md:inline-flex pressable items-center gap-2 bg-gold text-ink text-xs font-bold uppercase tracking-[0.06em] px-5 py-2.5 rounded-[7px] hover:bg-gold-light transition-colors duration-200"
+              className="hidden md:inline-flex pressable items-center gap-1.5 bg-gold text-ink label-sm font-semibold px-5 py-2.5 hover:bg-gold-light transition-colors duration-200"
+              style={{ borderRadius: 8 }}
             >
               Agendar Consulta
             </motion.a>
             <button
               onClick={() => setOpen(true)}
-              className="md:hidden text-white p-1"
+              className="md:hidden text-white/60 hover:text-white p-1 transition-colors"
               aria-label="Abrir menú"
             >
-              <Menu size={20} strokeWidth={1.8} />
+              <Menu size={19} strokeWidth={1.6} />
             </button>
           </div>
         </div>
@@ -98,15 +106,19 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] bg-[rgba(8,8,8,0.97)] backdrop-blur-2xl flex flex-col p-6"
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-[100] flex flex-col p-6"
+            style={{ background: 'rgba(7,7,7,0.97)', backdropFilter: 'blur(24px)' }}
           >
-            <div className="flex justify-between items-center mb-12">
-              <span className="font-display font-bold text-sm tracking-[0.06em] text-white">
+            <div className="flex justify-between items-center mb-14">
+              <span className="font-display font-bold text-[0.82rem] tracking-[0.08em] text-white">
                 AUREUM <span className="text-gold">STUDIO</span>
               </span>
-              <button onClick={() => setOpen(false)} className="text-white">
-                <X size={20} strokeWidth={1.8} />
+              <button
+                onClick={() => setOpen(false)}
+                className="text-white/50 hover:text-white transition-colors"
+              >
+                <X size={19} strokeWidth={1.6} />
               </button>
             </div>
             <nav className="flex flex-col">
@@ -114,11 +126,12 @@ export default function Navbar() {
                 <motion.a
                   key={l.href}
                   href={l.href}
-                  initial={{ x: -20, opacity: 0 }}
+                  initial={{ x: -18, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: i * 0.07, duration: 0.35, ease: E }}
+                  transition={{ delay: i * 0.06, duration: 0.3, ease: E }}
                   onClick={() => setOpen(false)}
-                  className="font-display text-3xl font-bold text-white py-3 border-b border-white/5 hover:text-gold transition-colors duration-200"
+                  className="font-display text-[2.2rem] font-bold text-white py-3.5 border-b hover:text-gold transition-colors duration-200"
+                  style={{ borderColor: 'rgba(255,255,255,0.05)', letterSpacing: '-0.02em' }}
                 >
                   {l.label}
                 </motion.a>
@@ -128,7 +141,8 @@ export default function Navbar() {
               <a
                 href="#contacto"
                 onClick={() => setOpen(false)}
-                className="flex justify-center items-center bg-gold text-ink font-bold text-sm tracking-wide py-4 rounded-xl"
+                className="flex justify-center items-center bg-gold text-ink font-body font-semibold label-sm py-4"
+                style={{ borderRadius: 10 }}
               >
                 Agendar Consulta
               </a>

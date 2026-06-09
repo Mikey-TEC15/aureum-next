@@ -487,19 +487,19 @@ export default function Services() {
         <div className="mb-[clamp(3rem,5vw,5rem)]">
           <motion.div
             ref={headerRef}
-            className="flex items-center gap-3 mb-5"
+            className="flex items-center gap-3 mb-6"
             initial={{ opacity: 0, x: -10 }}
             animate={headerInView ? { opacity: 1, x: 0 } : {}}
             transition={{ ...springs.smooth }}
           >
-            <div className="w-6 h-px bg-gold/50" />
-            <span className="font-body text-gold/60 uppercase" style={{ fontSize: '0.6rem', letterSpacing: '0.2em' }}>
+            <div className="w-5 h-px" style={{ background: 'rgba(212,175,55,0.5)' }} />
+            <span className="label-sm" style={{ color: 'rgba(212,175,55,0.6)' }}>
               Servicios
             </span>
           </motion.div>
           <h2
-            className="font-display font-bold text-white leading-[1.08] tracking-tightest"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)' }}
+            className="font-display font-bold text-white tracking-tightest"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', lineHeight: 1.08 }}
           >
             <TextReveal text="Lo que hacemos," mode="word" style={{ display: 'block' }} />
             <TextReveal text="y cómo lo hacemos." mode="word" className="text-gold" style={{ display: 'block' }} />

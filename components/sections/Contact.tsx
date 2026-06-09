@@ -109,12 +109,12 @@ export default function Contact() {
 
         {/* Header */}
         <motion.div {...fadeUp(0)} className="text-center mb-[clamp(3rem,6vw,6rem)]">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <div className="w-7 h-px bg-gold/60" />
-            <span className="font-body text-gold/55 uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.22em' }}>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-6 h-px" style={{ background: 'rgba(212,175,55,0.5)' }} />
+            <span className="label-sm" style={{ color: 'rgba(212,175,55,0.55)' }}>
               Contacto
             </span>
-            <div className="w-7 h-px bg-gold/60" />
+            <div className="w-6 h-px" style={{ background: 'rgba(212,175,55,0.5)' }} />
           </div>
           <h2
             className="font-display font-bold text-white leading-[1.08] tracking-tightest mb-5"
@@ -123,7 +123,7 @@ export default function Contact() {
             <TextReveal text="¿Listo para crecer" mode="word" style={{ display: 'block' }} />
             <TextReveal text="de verdad?" mode="word" className="text-gold" style={{ display: 'block' }} />
           </h2>
-          <p className="font-body text-white/38 text-[0.88rem] leading-[1.8] max-w-[38ch] mx-auto">
+          <p className="font-body leading-[1.78] max-w-[38ch] mx-auto" style={{ fontSize: '0.88rem', color: 'var(--text-secondary)' }}>
             La consulta inicial es gratuita. 45 minutos que podrían cambiar el mes de tu negocio.
           </p>
         </motion.div>

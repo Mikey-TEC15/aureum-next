@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Poppins } from 'next/font/google'
+import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import LenisProvider from '@/components/LenisProvider'
 import ScrollProgress from '@/components/ScrollProgress'
@@ -14,11 +14,10 @@ const playfair = Playfair_Display({
   weight: ['400', '500', '600', '700', '800', '900'],
 })
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-body',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700'],
 })
 
 export const metadata: Metadata = {
@@ -41,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${playfair.variable} ${poppins.variable}`}
+      className={`${playfair.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <body className="antialiased overflow-x-hidden" style={{ background: '#0D0D0D', color: '#ffffff' }}>

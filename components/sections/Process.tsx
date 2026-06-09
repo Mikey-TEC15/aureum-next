@@ -256,14 +256,20 @@ function StepPanel({
           </span>
 
           <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="font-body text-gold/50 uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.22em' }}>
+            <div className="flex items-center gap-3 mb-9">
+              <span className="label-sm" style={{ color: 'rgba(212,175,55,0.45)', fontSize: '0.62rem' }}>
                 {step.number}
               </span>
-              <div className="w-px h-3 bg-white/10" />
+              <div className="w-px h-3" style={{ background: 'rgba(255,255,255,0.1)' }} />
               <span
-                className="font-body text-gold border border-gold/25 px-2.5 py-1"
-                style={{ fontSize: '0.58rem', letterSpacing: '0.14em', textTransform: 'uppercase' }}
+                className="font-body text-gold"
+                style={{
+                  fontSize: '0.6rem',
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  border: '1px solid rgba(212,175,55,0.2)',
+                  padding: '3px 8px',
+                }}
               >
                 {step.tag}
               </span>
@@ -387,11 +393,11 @@ export default function Process() {
         transition={{ duration: 0.6 }}
         className="absolute top-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex items-center gap-3"
       >
-        <div className="w-6 h-px bg-gold/50" />
-        <span className="font-body text-gold/50 uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.22em' }}>
+        <div className="w-5 h-px" style={{ background: 'rgba(212,175,55,0.4)' }} />
+        <span className="label-sm" style={{ color: 'rgba(212,175,55,0.5)' }}>
           Nuestro proceso
         </span>
-        <div className="w-6 h-px bg-gold/50" />
+        <div className="w-5 h-px" style={{ background: 'rgba(212,175,55,0.4)' }} />
       </motion.div>
 
       {/* Horizontal track */}
