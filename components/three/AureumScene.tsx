@@ -224,15 +224,17 @@ const FRAG = /* glsl */ `
 interface ParticlesProps {
   target: FormationKey
   mouse:  React.MutableRefObject<{ x: number; y: number }>
+  shift:  React.MutableRefObject<boolean>
 }
 
-function Particles({ target, mouse }: ParticlesProps) {
+function Particles({ target, mouse, shift }: ParticlesProps) {
   const groupRef   = useRef<THREE.Group>(null)
   const morphT     = useRef(1)
   const prevTarget = useRef<FormationKey>('sphere')
   const rotX       = useRef(0)
   const rotY       = useRef(0)
-  const autoY      = useRef(0) // slow ambient rotation
+  const autoY      = useRef(0)
+  const posX       = useRef(0) // current interpolated X position
 
   const { geo, mat } = useMemo(() => {
     const init   = getFormation('sphere')
@@ -305,6 +307,11 @@ function Particles({ target, mouse }: ParticlesProps) {
       mat.uniforms.uT.value = morphT.current
     }
 
+    // Smooth position shift — slides right when in proceso/contacto
+    const targetX = shift.current ? 5.5 : 0
+    posX.current += (targetX - posX.current) * 0.04
+    groupRef.current.position.x = posX.current
+
     // Ambient auto-rotation — subtle, never stops
     autoY.current += delta * 0.12
 
@@ -330,13 +337,18 @@ const SECTION_FORMATIONS: Record<string, FormationKey> = {
   'meta-ads':'flow',
   web:       'grid',
   ia:        'neural',
+  proceso:   'flow',
   contacto:  'logo',
 }
+
+// Sections where the scene shifts to the side to free up content area
+const SHIFT_SECTIONS = new Set(['proceso', 'contacto'])
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 export default function AureumScene() {
   const [target, setTarget] = useState<FormationKey>('sphere')
   const mouse               = useRef({ x: 0, y: 0 })
+  const shift               = useRef(false)
   const activeSection       = useRef('inicio')
   const timer               = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
@@ -368,6 +380,7 @@ export default function AureumScene() {
 
       activeSection.current = section
       const next = (SECTION_FORMATIONS[section] ?? 'sphere') as FormationKey
+      shift.current = SHIFT_SECTIONS.has(section)
 
       clearTimeout(timer.current)
       setTarget('scatter')
@@ -393,7 +406,7 @@ export default function AureumScene() {
         dpr={[1, 1.5]}
         onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
       >
-        <Particles target={target} mouse={mouse} />
+        <Particles target={target} mouse={mouse} shift={shift} />
       </Canvas>
     </div>
   )

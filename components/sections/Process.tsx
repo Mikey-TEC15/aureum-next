@@ -374,6 +374,7 @@ export default function Process() {
   return (
     <section
       id="proceso"
+      data-formation="flow"
       ref={outerRef}
       className="grain-overlay overflow-hidden"
       style={{ background: 'transparent' }}
