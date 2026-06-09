@@ -1,14 +1,9 @@
 'use client'
-import dynamic from 'next/dynamic'
 import { useRef } from 'react'
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, MessageCircle } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
-
-// Load Canvas only on client — no SSR
-const SceneWrapper = dynamic(() => import('@/components/three/SceneWrapper'), {
-  ssr: false,
-})
+import HeroBackground from '@/components/three/HeroBackground'
 
 const E = [0.23, 1, 0.32, 1] as const
 
@@ -29,7 +24,6 @@ const container = {
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const spotlightRef = useRef<HTMLDivElement>(null)
-  const scrollProgress = useRef<number>(0)
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!spotlightRef.current || !sectionRef.current) return
@@ -44,14 +38,7 @@ export default function Hero() {
     offset: ['start start', 'end start'],
   })
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-  const sphereY = useTransform(scrollYProgress, [0, 1], ['0%', '12%'])
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
-
-  // Push scroll progress into a ref (not state) so the 3D entity reads it
-  // inside useFrame without triggering any React re-renders.
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    scrollProgress.current = v
-  })
 
   return (
     <section
@@ -68,10 +55,7 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none transition-[background] duration-100 z-[1]"
       />
 
-      {/* 3D particle background — full section, behind all content */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none z-0">
-        <SceneWrapper scrollProgress={scrollProgress} />
-      </div>
+      <HeroBackground />
 
       {/* Ambient gold radial glow */}
       <div
