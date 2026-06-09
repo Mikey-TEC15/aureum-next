@@ -7,20 +7,6 @@ import HeroBackground from '@/components/three/HeroBackground'
 
 const E = [0.23, 1, 0.32, 1] as const
 
-const item = {
-  hidden: { opacity: 0, y: 28 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, delay: i * 0.12, ease: E },
-  }),
-}
-
-const container = {
-  hidden: {},
-  show: {},
-}
-
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const spotlightRef = useRef<HTMLDivElement>(null)
@@ -89,16 +75,12 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center min-h-[calc(100vh-7rem)]">
 
           {/* ── Text ── */}
-          <motion.div
-            variants={container}
-            initial="show"
-            animate="show"
-            style={{ y: contentY }}
-          >
+          <motion.div style={{ y: contentY }}>
             {/* Eyebrow */}
             <motion.div
-              custom={0}
-              variants={item}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0, ease: E }}
               className="flex items-center gap-3 mb-8"
             >
               <div className="w-7 h-px bg-gold" />
@@ -109,8 +91,9 @@ export default function Hero() {
 
             {/* H1 */}
             <motion.h1
-              custom={1}
-              variants={item}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.12, ease: E }}
               className="font-display font-bold text-white leading-[1.05] tracking-tightest mb-6"
               style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}
             >
@@ -120,8 +103,9 @@ export default function Hero() {
 
             {/* Subtitle */}
             <motion.p
-              custom={2}
-              variants={item}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.24, ease: E }}
               className="font-body text-white/50 leading-[1.8] mb-10 max-w-[44ch]"
               style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.05rem)' }}
             >
@@ -130,8 +114,9 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div
-              custom={3}
-              variants={item}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.36, ease: E }}
               className="flex flex-wrap gap-4 items-center mb-14"
             >
               <MagneticButton strength={0.28}>
@@ -162,8 +147,9 @@ export default function Hero() {
 
             {/* Social proof */}
             <motion.div
-              custom={4}
-              variants={item}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.48, ease: E }}
               className="flex items-center gap-4 pt-6 border-t border-white/[0.05]"
             >
               <div className="flex">
