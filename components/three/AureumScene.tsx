@@ -332,15 +332,11 @@ function Particles({ target, mouse }: ParticlesProps) {
 // ─── Section → formation mapping ──────────────────────────────────────────────
 const SECTION_FORMATIONS: Record<string, FormationKey> = {
   inicio:    'sphere',
-  leads:     'network',
-  'meta-ads':'flow',
-  web:       'grid',
-  ia:        'neural',
+  servicios: 'network',
   proceso:   'flow',
   contacto:  'logo',
 }
 
-// Sections where the scene shifts to the side to free up content area
 const SHIFT_SECTIONS = new Set(['proceso', 'contacto'])
 
 // ─── Main export ──────────────────────────────────────────────────────────────
@@ -367,7 +363,7 @@ export default function AureumScene() {
       document.querySelectorAll<HTMLElement>('[data-formation]').forEach(el => {
         const { top, bottom } = el.getBoundingClientRect()
         if (top <= mid && bottom >= mid) {
-          found = el.getAttribute('data-formation') ?? found
+          found = el.id || el.getAttribute('data-formation') || found
         }
       })
       return found
