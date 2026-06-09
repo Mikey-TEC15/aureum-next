@@ -353,6 +353,17 @@ export default function AureumScene() {
     return () => window.removeEventListener('mousemove', onMove)
   }, [])
 
+  // Direct morph on service hover — no scatter, smooth and elegant
+  useEffect(() => {
+    const onFormation = (e: Event) => {
+      const formation = (e as CustomEvent<string>).detail as FormationKey
+      clearTimeout(timer.current)
+      setTarget(formation)
+    }
+    window.addEventListener('aureum:formation', onFormation)
+    return () => window.removeEventListener('aureum:formation', onFormation)
+  }, [])
+
   useEffect(() => {
     const detect = (): string => {
       let found = activeSection.current

@@ -459,10 +459,25 @@ function MobilePanel({ service, open, onToggle }: { service: (typeof services)[0
 
 // ── Section ──────────────────────────────────────────────────────────────────
 
+const SERVICE_FORMATIONS: Record<string, string> = {
+  leads: 'network',
+  meta:  'flow',
+  web:   'grid',
+  ai:    'neural',
+}
+
 export default function Services() {
   const [activeId, setActiveId] = useState(services[0].id)
   const [mobileOpen, setMobileOpen] = useState<string | null>(services[0].id)
   const { ref: headerRef, isInView: headerInView } = useReveal()
+
+  const handleServiceEnter = (id: string) => {
+    setActiveId(id)
+    const formation = SERVICE_FORMATIONS[id]
+    if (formation) {
+      window.dispatchEvent(new CustomEvent('aureum:formation', { detail: formation }))
+    }
+  }
 
   return (
     <section id="servicios" data-formation="network" className="py-[clamp(6rem,10vw,10rem)]">
@@ -503,7 +518,7 @@ export default function Services() {
             key={s.id}
             service={s}
             active={activeId === s.id}
-            onEnter={() => setActiveId(s.id)}
+            onEnter={() => handleServiceEnter(s.id)}
             index={i}
           />
         ))}
@@ -519,7 +534,7 @@ export default function Services() {
             key={s.id}
             service={s}
             open={mobileOpen === s.id}
-            onToggle={() => setMobileOpen(mobileOpen === s.id ? null : s.id)}
+            onToggle={() => { setMobileOpen(mobileOpen === s.id ? null : s.id); handleServiceEnter(s.id) }}
           />
         ))}
       </div>
