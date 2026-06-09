@@ -1,3 +1,4 @@
+import AureumScene from '@/components/three/AureumScene'
 import Hero from '@/components/sections/Hero'
 import MarqueeSection from '@/components/ui/Marquee'
 import Benefits from '@/components/sections/Benefits'
@@ -26,6 +27,7 @@ function LightToDark() {
 export default function Home() {
   return (
     <>
+      <AureumScene />
       <Hero />
       <MarqueeSection />
       <Benefits />

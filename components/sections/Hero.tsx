@@ -29,12 +29,13 @@ export default function Hero() {
   return (
     <section
       id="inicio"
+      data-formation="sphere"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       className="grain-overlay relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse 80% 60% at 60% 50%, #1a1a1a 0%, #0D0D0D 65%)' }}
+      style={{ background: 'transparent' }}
     >
-      <HeroBackground />
+      {/* HeroBackground replaced by global AureumScene canvas */}
 
       {/* Cursor spotlight */}
       <div

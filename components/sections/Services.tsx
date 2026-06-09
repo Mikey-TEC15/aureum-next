@@ -465,7 +465,7 @@ export default function Services() {
   const { ref: headerRef, isInView: headerInView } = useReveal()
 
   return (
-    <section id="servicios" className="bg-[#0D0D0D] py-[clamp(6rem,10vw,10rem)]">
+    <section id="servicios" data-formation="network" className="py-[clamp(6rem,10vw,10rem)]">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <motion.div
           ref={headerRef}

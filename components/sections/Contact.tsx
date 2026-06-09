@@ -88,9 +88,10 @@ export default function Contact() {
   return (
     <section
       id="contacto"
+      data-formation="logo"
       ref={ref}
       className="grain-overlay relative py-[clamp(6rem,10vw,10rem)] px-6 md:px-10 overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse 110% 80% at 50% 110%, #181818 0%, #0D0D0D 65%)' }}
+      style={{ background: 'transparent' }}
     >
       {/* Ambient bottom glow */}
       <div

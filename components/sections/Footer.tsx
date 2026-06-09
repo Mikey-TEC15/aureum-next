@@ -16,7 +16,7 @@ export default function Footer() {
   return (
     <footer
       className="relative overflow-hidden pt-[clamp(5rem,8vw,7rem)] pb-10 px-6 md:px-10"
-      style={{ background: '#0A0A0A' }}
+      style={{ background: 'transparent' }}
     >
       {/* Ambient glow */}
       <div

@@ -64,7 +64,7 @@ export default function Benefits() {
     <section
       id="beneficios"
       className="grain-overlay relative py-[clamp(6rem,10vw,10rem)] px-6 md:px-10"
-      style={{ background: 'radial-gradient(ellipse 70% 60% at 50% 50%, #1a1a1a 0%, #111111 65%)' }}
+      style={{ background: 'transparent' }}
     >
       <div className="max-w-7xl mx-auto">
         <motion.div

@@ -376,7 +376,7 @@ export default function Process() {
       id="proceso"
       ref={outerRef}
       className="grain-overlay overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse 100% 80% at 0% 50%, #161616 0%, #0D0D0D 60%)' }}
+      style={{ background: 'transparent' }}
     >
       {/* Floating section label */}
       <motion.div
