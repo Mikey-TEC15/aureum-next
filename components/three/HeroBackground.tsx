@@ -109,7 +109,7 @@ export default function HeroBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}
     />
   )
 }
