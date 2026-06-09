@@ -1,16 +1,19 @@
-import AureumScene from '@/components/three/AureumScene'
-import Hero from '@/components/sections/Hero'
-import MarqueeSection from '@/components/ui/Marquee'
-import Benefits from '@/components/sections/Benefits'
-import Services from '@/components/sections/Services'
-import Process from '@/components/sections/Process'
-import CaseStudies from '@/components/sections/CaseStudies'
-import Testimonials from '@/components/sections/Testimonials'
-import FAQ from '@/components/sections/FAQ'
-import Contact from '@/components/sections/Contact'
-import Footer from '@/components/sections/Footer'
+import dynamic from 'next/dynamic'
+import { AureumScene, Process } from '@/components/ClientSections'
 
-// Gradient bridges — ease the eye between light and dark sections
+// ── Critical path — SSR'd + above fold ──────────────────────────────────────
+import Hero           from '@/components/sections/Hero'
+import MarqueeSection from '@/components/ui/Marquee'
+import Benefits       from '@/components/sections/Benefits'
+import Services       from '@/components/sections/Services'
+
+// ── Below fold — SSR'd HTML, JS split into separate async chunks ─────────────
+const CaseStudies  = dynamic(() => import('@/components/sections/CaseStudies'))
+const Testimonials = dynamic(() => import('@/components/sections/Testimonials'))
+const FAQ          = dynamic(() => import('@/components/sections/FAQ'))
+const Contact      = dynamic(() => import('@/components/sections/Contact'))
+const Footer       = dynamic(() => import('@/components/sections/Footer'))
+
 function LightToDark() {
   return (
     <div

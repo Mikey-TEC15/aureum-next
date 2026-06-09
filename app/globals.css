@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: dark; /* Prevents browser white-flash before CSS loads */
   --gold:        #D4AF37;
   --gold-light:  #E8CC6A;
   --gold-dim:    #B8962A;

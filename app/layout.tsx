@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import LenisProvider from '@/components/LenisProvider'
@@ -31,6 +31,15 @@ export const metadata: Metadata = {
     description: 'Resultados medibles. Sin excusas.',
     type: 'website',
   },
+  robots: { index: true, follow: true },
+}
+
+// Separate Viewport export prevents the deprecated viewport meta warning
+export const viewport: Viewport = {
+  themeColor: '#0D0D0D',
+  colorScheme: 'dark',
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({
