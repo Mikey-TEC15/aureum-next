@@ -94,11 +94,4 @@ h1, h2, h3 {
 
 
 
-@keyframes heroFadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
-.hero-fade {
-  animation: heroFadeUp 0.75s cubic-bezier(0.23, 1, 0.32, 1) both;
-}

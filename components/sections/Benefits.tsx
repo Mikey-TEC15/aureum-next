@@ -2,6 +2,8 @@
 import { useEffect, useRef } from 'react'
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
 import { useReveal } from '@/hooks/useReveal'
+import TextReveal from '@/components/motion/TextReveal'
+import { springs } from '@/lib/motion'
 
 const E = [0.23, 1, 0.32, 1] as const
 
@@ -67,24 +69,24 @@ export default function Benefits() {
       style={{ background: 'transparent' }}
     >
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          ref={headerRef}
-          initial={{ opacity: 0, y: 24 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: E }}
-          className="grid md:grid-cols-2 gap-6 items-end mb-[clamp(4rem,6vw,6rem)]"
-        >
+        <div className="grid md:grid-cols-2 gap-6 items-end mb-[clamp(4rem,6vw,6rem)]">
           <h2
             className="font-display font-bold text-white leading-[1.08] tracking-tightest"
             style={{ fontSize: 'clamp(2.2rem, 4vw, 3.5rem)' }}
           >
-            El impacto de trabajar{' '}
-            <em className="not-italic text-gold">con precisión.</em>
+            <TextReveal text="El impacto de trabajar" mode="word" style={{ display: 'block' }} />
+            <TextReveal text="con precisión." mode="word" className="text-gold" style={{ display: 'block' }} />
           </h2>
-          <p className="font-body text-white/45 text-[0.9rem] leading-[1.75] max-w-[42ch]">
+          <motion.p
+            ref={headerRef}
+            className="font-body text-white/45 text-[0.9rem] leading-[1.75] max-w-[42ch]"
+            initial={{ opacity: 0, y: 14 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ ...springs.smooth, delay: 0.18 }}
+          >
             Cada estrategia tiene una métrica que la respalda. Estos son los resultados promedio que generamos para nuestros clientes.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: 'rgba(255,255,255,0.04)' }}>
           {metrics.map((m, i) => (

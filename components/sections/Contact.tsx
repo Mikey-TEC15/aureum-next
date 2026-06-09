@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
+import TextReveal from '@/components/motion/TextReveal'
 
 const E = [0.23, 1, 0.32, 1] as const
 
@@ -119,8 +120,8 @@ export default function Contact() {
             className="font-display font-bold text-white leading-[1.08] tracking-tightest mb-5"
             style={{ fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)' }}
           >
-            ¿Listo para crecer{' '}
-            <em className="not-italic text-gold">de verdad?</em>
+            <TextReveal text="¿Listo para crecer" mode="word" style={{ display: 'block' }} />
+            <TextReveal text="de verdad?" mode="word" className="text-gold" style={{ display: 'block' }} />
           </h2>
           <p className="font-body text-white/38 text-[0.88rem] leading-[1.8] max-w-[38ch] mx-auto">
             La consulta inicial es gratuita. 45 minutos que podrían cambiar el mes de tu negocio.

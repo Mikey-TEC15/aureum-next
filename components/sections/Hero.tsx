@@ -3,9 +3,8 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, MessageCircle } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
-import HeroBackground from '@/components/three/HeroBackground'
-
-const E = [0.23, 1, 0.32, 1] as const
+import TextReveal from '@/components/motion/TextReveal'
+import { springs } from '@/lib/motion'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -23,8 +22,8 @@ export default function Hero() {
     target: sectionRef,
     offset: ['start start', 'end start'],
   })
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '18%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '14%'])
+  const scrollOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
 
   return (
     <section
@@ -35,8 +34,6 @@ export default function Hero() {
       className="grain-overlay relative min-h-screen flex items-center overflow-hidden"
       style={{ background: 'transparent' }}
     >
-      {/* HeroBackground replaced by global AureumScene canvas */}
-
       {/* Cursor spotlight */}
       <div
         ref={spotlightRef}
@@ -72,45 +69,84 @@ export default function Hero() {
         style={{ background: 'linear-gradient(to top, #0D0D0D, transparent)' }}
       />
 
-      <div className="relative z-50 max-w-7xl mx-auto w-full px-6 md:px-10 pt-28 pb-20">
+      {/* Content — parallax on scroll */}
+      <motion.div
+        className="relative z-50 max-w-7xl mx-auto w-full px-6 md:px-10 pt-28 pb-20"
+        style={{ y: contentY }}
+      >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center min-h-[calc(100vh-7rem)]">
 
-          {/* ── Text ── */}
-          <div style={{ animation: 'none' }}>
+          {/* ── Text column ── */}
+          <div>
+
             {/* Eyebrow */}
-            <div className="flex items-center gap-3 mb-8 hero-fade" style={{ animationDelay: '0ms' }}>
-              <div className="w-7 h-px bg-gold" />
+            <motion.div
+              className="flex items-center gap-3 mb-8"
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ ...springs.smooth, delay: 0 }}
+            >
+              <motion.span
+                className="block bg-gold"
+                style={{ height: 1 }}
+                initial={{ width: 0 }}
+                animate={{ width: 28 }}
+                transition={{ ...springs.snappy, delay: 0.08 }}
+              />
               <span className="font-body text-[0.65rem] tracking-[0.22em] uppercase text-gold font-medium">
                 Agencia de Marketing Digital Premium
               </span>
-            </div>
+            </motion.div>
 
-            {/* H1 */}
+            {/* H1 — cinematic word reveal */}
             <h1
-              className="font-display font-bold text-white leading-[1.05] tracking-tightest mb-6 hero-fade"
-              style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', animationDelay: '120ms' }}
+              className="font-display font-bold text-white leading-[1.05] tracking-tightest mb-6"
+              style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}
             >
-              Transformamos atención{' '}
-              <em className="not-italic text-gold">en clientes.</em>
+              <TextReveal
+                text="Transformamos atención"
+                mode="word"
+                immediate
+                delay={0.1}
+                style={{ display: 'block' }}
+              />
+              <TextReveal
+                text="en clientes."
+                mode="word"
+                immediate
+                delay={0.28}
+                className="text-gold"
+                style={{ display: 'block' }}
+              />
             </h1>
 
             {/* Subtitle */}
-            <p
-              className="font-body text-white/50 leading-[1.8] mb-10 max-w-[44ch] hero-fade"
-              style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.05rem)', animationDelay: '240ms' }}
+            <motion.p
+              className="font-body text-white/50 leading-[1.8] mb-10 max-w-[44ch]"
+              style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.05rem)' }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...springs.smooth, delay: 0.46 }}
             >
               Ayudamos a empresas a crecer mediante publicidad estratégica, automatización e innovación digital.
-            </p>
+            </motion.p>
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4 items-center mb-14 hero-fade" style={{ animationDelay: '360ms' }}>
-              <a
-                href="#contacto"
-                className="inline-flex items-center gap-2 bg-gold text-ink font-body font-bold text-[0.82rem] uppercase tracking-[0.04em] px-7 py-4 rounded-[9px] hover:bg-gold-light transition-colors duration-200"
-              >
-                Agendar Consulta
-                <ArrowRight size={14} strokeWidth={2.5} />
-              </a>
+            <motion.div
+              className="flex flex-wrap gap-4 items-center mb-14"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ ...springs.smooth, delay: 0.58 }}
+            >
+              <MagneticButton>
+                <a
+                  href="#contacto"
+                  className="inline-flex items-center gap-2 bg-gold text-ink font-body font-bold text-[0.82rem] uppercase tracking-[0.04em] px-7 py-4 rounded-[9px] hover:bg-gold-light transition-colors duration-200"
+                >
+                  Agendar Consulta
+                  <ArrowRight size={14} strokeWidth={2.5} />
+                </a>
+              </MagneticButton>
               <a
                 href="https://wa.me/5534347955"
                 target="_blank"
@@ -120,10 +156,15 @@ export default function Hero() {
                 <MessageCircle size={14} strokeWidth={1.8} />
                 WhatsApp
               </a>
-            </div>
+            </motion.div>
 
             {/* Social proof */}
-            <div className="flex items-center gap-4 pt-6 border-t border-white/[0.05] hero-fade" style={{ animationDelay: '480ms' }}>
+            <motion.div
+              className="flex items-center gap-4 pt-6 border-t border-white/[0.05]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ ...springs.gentle, delay: 0.74 }}
+            >
               <div className="flex">
                 {['#9B2C2C', '#276749', '#1A4C8C', '#553C9A'].map((c, i) => (
                   <div
@@ -147,21 +188,22 @@ export default function Hero() {
                   +50 empresas confían en Aureum
                 </p>
               </div>
-            </div>
+            </motion.div>
+
           </div>
 
-          {/* Right column — empty, background canvas fills it */}
+          {/* Right column — 3D canvas fills it */}
           <div className="hidden lg:block" />
 
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 0.6 }}
-        style={{ opacity }}
+        style={{ opacity: scrollOpacity }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="font-body text-[0.6rem] tracking-[0.22em] uppercase text-white/30">Scroll</span>

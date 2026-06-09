@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useReveal } from '@/hooks/useReveal'
+import TextReveal from '@/components/motion/TextReveal'
+import { springs } from '@/lib/motion'
 
 const E = [0.23, 1, 0.32, 1] as const
 
@@ -482,27 +484,27 @@ export default function Services() {
   return (
     <section id="servicios" data-formation="network" className="py-[clamp(6rem,10vw,10rem)]">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <motion.div
-          ref={headerRef}
-          initial={{ opacity: 0, y: 24 }}
-          animate={headerInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: E }}
-          className="mb-[clamp(3rem,5vw,5rem)]"
-        >
-          <div className="flex items-center gap-3 mb-5">
+        <div className="mb-[clamp(3rem,5vw,5rem)]">
+          <motion.div
+            ref={headerRef}
+            className="flex items-center gap-3 mb-5"
+            initial={{ opacity: 0, x: -10 }}
+            animate={headerInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ ...springs.smooth }}
+          >
             <div className="w-6 h-px bg-gold/50" />
             <span className="font-body text-gold/60 uppercase" style={{ fontSize: '0.6rem', letterSpacing: '0.2em' }}>
               Servicios
             </span>
-          </div>
+          </motion.div>
           <h2
             className="font-display font-bold text-white leading-[1.08] tracking-tightest"
             style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)' }}
           >
-            Lo que hacemos,{' '}
-            <em className="not-italic text-gold">y cómo lo hacemos.</em>
+            <TextReveal text="Lo que hacemos," mode="word" style={{ display: 'block' }} />
+            <TextReveal text="y cómo lo hacemos." mode="word" className="text-gold" style={{ display: 'block' }} />
           </h2>
-        </motion.div>
+        </div>
       </div>
 
       {/* Desktop: expanding panels */}
