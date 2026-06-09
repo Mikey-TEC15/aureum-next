@@ -21,13 +21,16 @@ export default function MagneticButton({
 
   const config = { damping: 14, stiffness: 220 }
 
-  // Outer container — travels further
-  const x = useSpring(0, config)
-  const y = useSpring(0, config)
-
-  // Inner content — travels less, creates parallax depth
+  const x  = useSpring(0, config)
+  const y  = useSpring(0, config)
   const ix = useSpring(0, config)
   const iy = useSpring(0, config)
+
+  // All hooks called above — safe to early-return now
+  const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
+  if (isTouch) {
+    return <div className={`inline-flex ${className}`}>{children}</div>
+  }
 
   const onMove = (e: React.MouseEvent) => {
     if (!ref.current) return

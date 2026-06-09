@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useState, useMemo, memo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -9,7 +9,9 @@ export type FormationKey =
   | 'sphere' | 'scatter' | 'network'
   | 'flow'   | 'grid'    | 'neural' | 'logo'
 
-const N = 2800
+// Reduce geometry and disable antialias on mobile — saves ~57% GPU load
+const IS_MOBILE = typeof window !== 'undefined' && window.innerWidth < 768
+const N = IS_MOBILE ? 1200 : 2800
 
 // ─── Formation generators ─────────────────────────────────────────────────────
 function makeSphere(n: number): Float32Array {
@@ -226,7 +228,8 @@ interface ParticlesProps {
   mouse:  React.MutableRefObject<{ x: number; y: number }>
 }
 
-function Particles({ target, mouse }: ParticlesProps) {
+// memo prevents re-render when parent re-renders without prop changes
+const Particles = memo(function Particles({ target, mouse }: ParticlesProps) {
   const groupRef   = useRef<THREE.Group>(null)
   const morphT     = useRef(1)
   const prevTarget = useRef<FormationKey>('sphere')
@@ -327,7 +330,7 @@ function Particles({ target, mouse }: ParticlesProps) {
       <points geometry={geo} material={mat} />
     </group>
   )
-}
+})
 
 // ─── Section → formation mapping ──────────────────────────────────────────────
 const SECTION_FORMATIONS: Record<string, FormationKey> = {
@@ -345,7 +348,12 @@ export default function AureumScene() {
   const timer               = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   useEffect(() => {
+    if (IS_MOBILE) return // no pointer on touch devices
+    let last = 0
     const onMove = (e: MouseEvent) => {
+      const now = performance.now()
+      if (now - last < 16) return // throttle to ~60 fps
+      last = now
       mouse.current.x =  (e.clientX / window.innerWidth)  * 2 - 1
       mouse.current.y = -(e.clientY / window.innerHeight) * 2 + 1
     }
@@ -403,8 +411,8 @@ export default function AureumScene() {
     >
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
-        gl={{ antialias: true, alpha: true }}
-        dpr={[1, 1.5]}
+        gl={{ antialias: !IS_MOBILE, alpha: true, powerPreference: 'high-performance' }}
+        dpr={[1, IS_MOBILE ? 1 : 1.5]}
         onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
       >
         <Particles target={target} mouse={mouse} />
