@@ -9,7 +9,7 @@ export type FormationKey =
   | 'sphere' | 'scatter' | 'network'
   | 'flow'   | 'grid'    | 'neural' | 'logo'
 
-const N = 4000
+const N = 2800
 
 // ─── Formation generators ─────────────────────────────────────────────────────
 function makeSphere(n: number): Float32Array {
@@ -19,9 +19,9 @@ function makeSphere(n: number): Float32Array {
     const y = 1 - (i / (n - 1)) * 2
     const r = Math.sqrt(Math.max(0, 1 - y * y))
     const t = phi * i
-    p[i*3]   = r * Math.cos(t) * 2.5
-    p[i*3+1] = y * 2.5
-    p[i*3+2] = r * Math.sin(t) * 2.5
+    p[i*3]   = r * Math.cos(t) * 1.8
+    p[i*3+1] = y * 1.8
+    p[i*3+2] = r * Math.sin(t) * 1.8
   }
   return p
 }
@@ -31,7 +31,7 @@ function makeScatter(n: number): Float32Array {
   for (let i = 0; i < n; i++) {
     const theta = Math.random() * Math.PI * 2
     const phi   = Math.acos(2 * Math.random() - 1)
-    const r     = 5 + Math.random() * 12
+    const r     = 3 + Math.random() * 8
     p[i*3]   = r * Math.sin(phi) * Math.cos(theta)
     p[i*3+1] = r * Math.cos(phi)
     p[i*3+2] = r * Math.sin(phi) * Math.sin(theta)
@@ -41,18 +41,18 @@ function makeScatter(n: number): Float32Array {
 
 function makeNetwork(n: number): Float32Array {
   const p = new Float32Array(n * 3)
-  const nc = 20
+  const nc = 18
   const nodes: [number, number, number][] = Array.from({ length: nc }, () => [
-    (Math.random() - 0.5) * 8,
-    (Math.random() - 0.5) * 5,
-    (Math.random() - 0.5) * 2,
+    (Math.random() - 0.5) * 7,
+    (Math.random() - 0.5) * 4,
+    (Math.random() - 0.5) * 1.5,
   ])
   for (let i = 0; i < n; i++) {
-    if (i < nc * 12) {
+    if (i < nc * 10) {
       const nd = nodes[i % nc]
-      p[i*3]   = nd[0] + (Math.random() - 0.5) * 0.3
-      p[i*3+1] = nd[1] + (Math.random() - 0.5) * 0.3
-      p[i*3+2] = nd[2] + (Math.random() - 0.5) * 0.3
+      p[i*3]   = nd[0] + (Math.random() - 0.5) * 0.25
+      p[i*3+1] = nd[1] + (Math.random() - 0.5) * 0.25
+      p[i*3+2] = nd[2] + (Math.random() - 0.5) * 0.25
     } else {
       const a = nodes[Math.floor(Math.random() * nc)]
       const b = nodes[Math.floor(Math.random() * nc)]
@@ -67,14 +67,14 @@ function makeNetwork(n: number): Float32Array {
 
 function makeFlow(n: number): Float32Array {
   const p = new Float32Array(n * 3)
-  const streams = 12
+  const streams = 10
   for (let i = 0; i < n; i++) {
     const s = i % streams
     const t = Math.random()
-    const x = (s / (streams - 1) - 0.5) * 9
-    p[i*3]   = x + Math.sin(t * Math.PI * 3 + s * 0.8) * 0.5 + (Math.random() - 0.5) * 0.1
-    p[i*3+1] = t * 8 - 4
-    p[i*3+2] = Math.cos(t * Math.PI * 2 + s) * 0.7
+    const x = (s / (streams - 1) - 0.5) * 7
+    p[i*3]   = x + Math.sin(t * Math.PI * 3 + s * 0.8) * 0.4 + (Math.random() - 0.5) * 0.1
+    p[i*3+1] = t * 6 - 3
+    p[i*3+2] = Math.cos(t * Math.PI * 2 + s) * 0.5
   }
   return p
 }
@@ -83,68 +83,66 @@ function makeGrid(n: number): Float32Array {
   const p = new Float32Array(n * 3)
   const side = Math.ceil(Math.cbrt(n))
   for (let i = 0; i < n; i++) {
-    p[i*3]   = ((i % side) / (side - 1) - 0.5) * 8
-    p[i*3+1] = ((Math.floor(i / side) % side) / (side - 1) - 0.5) * 5
-    p[i*3+2] = ((Math.floor(i / (side * side))) / (side - 1) - 0.5) * 3
+    p[i*3]   = ((i % side) / (side - 1) - 0.5) * 7
+    p[i*3+1] = ((Math.floor(i / side) % side) / (side - 1) - 0.5) * 4
+    p[i*3+2] = ((Math.floor(i / (side * side))) / (side - 1) - 0.5) * 2.5
   }
   return p
 }
 
 function makeNeural(n: number): Float32Array {
   const p = new Float32Array(n * 3)
-  const layers = [5, 9, 13, 9, 5, 3]
+  const layers = [5, 8, 12, 8, 5, 3]
   const total  = layers.reduce((a, b) => a + b, 0)
   const perNode = Math.floor(n / total)
   let idx = 0
   for (let l = 0; l < layers.length; l++) {
     const count = layers[l]
-    const x     = (l / (layers.length - 1) - 0.5) * 10
+    const x     = (l / (layers.length - 1) - 0.5) * 9
     for (let nd = 0; nd < count && idx < n; nd++) {
-      const y   = count > 1 ? (nd / (count - 1) - 0.5) * 6 : 0
+      const y   = count > 1 ? (nd / (count - 1) - 0.5) * 5 : 0
       const end = Math.min(idx + perNode, n)
       while (idx < end) {
-        p[idx*3]   = x + (Math.random() - 0.5) * 0.3
-        p[idx*3+1] = y + (Math.random() - 0.5) * 0.3
-        p[idx*3+2] = (Math.random() - 0.5) * 1.5
+        p[idx*3]   = x + (Math.random() - 0.5) * 0.25
+        p[idx*3+1] = y + (Math.random() - 0.5) * 0.25
+        p[idx*3+2] = (Math.random() - 0.5) * 1.2
         idx++
       }
     }
   }
-  // Fill any remainder
   while (idx < n) {
-    p[idx*3]   = (Math.random() - 0.5) * 10
-    p[idx*3+1] = (Math.random() - 0.5) * 6
-    p[idx*3+2] = (Math.random() - 0.5) * 1.5
+    p[idx*3]   = (Math.random() - 0.5) * 9
+    p[idx*3+1] = (Math.random() - 0.5) * 5
+    p[idx*3+2] = (Math.random() - 0.5) * 1.2
     idx++
   }
   return p
 }
 
 function makeLogo(n: number): Float32Array {
-  // Letter "A" — left diagonal + right diagonal + crossbar
   const p = new Float32Array(n * 3)
   const third = Math.floor(n / 3)
   for (let i = 0; i < n; i++) {
     const t = Math.random()
-    const j = 0.07
+    const j = 0.06
     if (i < third) {
-      p[i*3]   = -2.2 + t * 2.2 + (Math.random() - 0.5) * j
-      p[i*3+1] = -2.5 + t * 5   + (Math.random() - 0.5) * j
-      p[i*3+2] = (Math.random() - 0.5) * 0.2
+      p[i*3]   = -1.8 + t * 1.8 + (Math.random() - 0.5) * j
+      p[i*3+1] = -2.0 + t * 4.0 + (Math.random() - 0.5) * j
+      p[i*3+2] = (Math.random() - 0.5) * 0.15
     } else if (i < third * 2) {
-      p[i*3]   =  2.2 - t * 2.2 + (Math.random() - 0.5) * j
-      p[i*3+1] = -2.5 + t * 5   + (Math.random() - 0.5) * j
-      p[i*3+2] = (Math.random() - 0.5) * 0.2
+      p[i*3]   =  1.8 - t * 1.8 + (Math.random() - 0.5) * j
+      p[i*3+1] = -2.0 + t * 4.0 + (Math.random() - 0.5) * j
+      p[i*3+2] = (Math.random() - 0.5) * 0.15
     } else {
-      p[i*3]   = (Math.random() - 0.5) * 2.4
+      p[i*3]   = (Math.random() - 0.5) * 2.0
       p[i*3+1] = 0.2 + (Math.random() - 0.5) * j
-      p[i*3+2] = (Math.random() - 0.5) * 0.2
+      p[i*3+2] = (Math.random() - 0.5) * 0.15
     }
   }
   return p
 }
 
-// ─── Formation cache (module-level, computed once per session) ─────────────────
+// ─── Formation cache ──────────────────────────────────────────────────────────
 const GEN: Record<FormationKey, (n: number) => Float32Array> = {
   sphere:  makeSphere,
   scatter: makeScatter,
@@ -175,7 +173,6 @@ const VERT = /* glsl */ `
   varying float vAlpha;
   varying float vDepth;
 
-  // Smootherstep (C2-continuous) for wave cascade
   float ss(float t) {
     return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
   }
@@ -186,17 +183,18 @@ const VERT = /* glsl */ `
 
     vec3 pos = mix(aFrom, aTo, local);
 
-    // Organic micro-breathing
-    float b = sin(uTime * 0.72 + aPhase) * 0.035
-            + cos(uTime * 0.51 + aPhase * 1.37) * 0.022;
+    // Gentle organic drift
+    float b = sin(uTime * 0.65 + aPhase) * 0.025
+            + cos(uTime * 0.44 + aPhase * 1.3) * 0.015;
     pos += normalize(pos + vec3(0.001)) * b;
 
     vec4 mv   = modelViewMatrix * vec4(pos, 1.0);
     gl_PointSize = aSize * (-280.0 / mv.z);
     gl_Position  = projectionMatrix * mv;
 
-    vAlpha = 0.5 + 0.5 * sin(uTime * 0.63 + aPhase);
-    vDepth = clamp(length(pos) / 8.0, 0.0, 1.0);
+    // Subtle pulse — range 0.2 to 0.7 (never fully opaque)
+    vAlpha = 0.35 + 0.35 * sin(uTime * 0.55 + aPhase);
+    vDepth = clamp(length(pos) / 6.0, 0.0, 1.0);
   }
 `
 
@@ -212,16 +210,17 @@ const FRAG = /* glsl */ `
     float d    = length(uv);
     if (d > 0.5) discard;
 
-    float core = 1.0 - smoothstep(0.0, 0.14, d);
+    // Tighter core, softer glow — less overpowering
+    float core = 1.0 - smoothstep(0.0, 0.12, d);
     float glow = 1.0 - smoothstep(0.0, 0.5,  d);
-    vec3  col  = mix(uColA, uColB, vDepth * 0.55 + 0.1);
-    float a    = (core * 0.88 + glow * 0.32) * vAlpha;
+    vec3  col  = mix(uColA, uColB, vDepth * 0.5 + 0.1);
+    float a    = (core * 0.55 + glow * 0.13) * vAlpha;
 
     gl_FragColor = vec4(col, a);
   }
 `
 
-// ─── Particle mesh (runs inside Canvas) ───────────────────────────────────────
+// ─── Particle mesh ────────────────────────────────────────────────────────────
 interface ParticlesProps {
   target: FormationKey
   mouse:  React.MutableRefObject<{ x: number; y: number }>
@@ -233,8 +232,8 @@ function Particles({ target, mouse }: ParticlesProps) {
   const prevTarget = useRef<FormationKey>('sphere')
   const rotX       = useRef(0)
   const rotY       = useRef(0)
+  const autoY      = useRef(0) // slow ambient rotation
 
-  // Geometry and material created once
   const { geo, mat } = useMemo(() => {
     const init   = getFormation('sphere')
     const sizes  = new Float32Array(N)
@@ -242,7 +241,7 @@ function Particles({ target, mouse }: ParticlesProps) {
     const delays = new Float32Array(N)
 
     for (let i = 0; i < N; i++) {
-      sizes[i]  = 0.8 + Math.random() * 2.0
+      sizes[i]  = 0.5 + Math.random() * 1.2
       phases[i] = Math.random() * Math.PI * 2
       delays[i] = Math.random()
     }
@@ -262,7 +261,7 @@ function Particles({ target, mouse }: ParticlesProps) {
         uTime: { value: 0 },
         uT:    { value: 1 },
         uColA: { value: new THREE.Color('#D4AF37') },
-        uColB: { value: new THREE.Color('#FFF6DE') },
+        uColB: { value: new THREE.Color('#F5E6A3') },
       },
       transparent: true,
       depthWrite:  false,
@@ -272,10 +271,8 @@ function Particles({ target, mouse }: ParticlesProps) {
     return { geo: g, mat: m }
   }, [])
 
-  // Cleanup on unmount
   useEffect(() => () => { geo.dispose(); mat.dispose() }, [geo, mat])
 
-  // Formation transition
   useEffect(() => {
     if (target === prevTarget.current) return
 
@@ -285,7 +282,6 @@ function Particles({ target, mouse }: ParticlesProps) {
     const toArr    = toAttr.array   as Float32Array
     const curT     = morphT.current
 
-    // Snapshot current visual positions → new aFrom
     for (let i = 0; i < N * 3; i++) {
       fromArr[i] = fromArr[i] + (toArr[i] - fromArr[i]) * curT
     }
@@ -305,13 +301,18 @@ function Particles({ target, mouse }: ParticlesProps) {
     mat.uniforms.uTime.value += delta
 
     if (morphT.current < 1) {
-      morphT.current = Math.min(1, morphT.current + delta * 0.62)
+      morphT.current = Math.min(1, morphT.current + delta * 0.50)
       mat.uniforms.uT.value = morphT.current
     }
 
-    rotY.current += (mouse.current.x * 0.65 - rotY.current) * 0.055
-    rotX.current += (-mouse.current.y * 0.35 - rotX.current) * 0.055
-    groupRef.current.rotation.y = rotY.current
+    // Ambient auto-rotation — subtle, never stops
+    autoY.current += delta * 0.12
+
+    // Mouse adds a gentle tilt on top of auto-rotation
+    rotY.current += (mouse.current.x * 0.5 - rotY.current) * 0.045
+    rotX.current += (-mouse.current.y * 0.25 - rotX.current) * 0.045
+
+    groupRef.current.rotation.y = autoY.current + rotY.current
     groupRef.current.rotation.x = rotX.current
   })
 
@@ -334,12 +335,11 @@ const SECTION_FORMATIONS: Record<string, FormationKey> = {
 
 // ─── Main export ──────────────────────────────────────────────────────────────
 export default function AureumScene() {
-  const [target, setTarget]   = useState<FormationKey>('sphere')
-  const mouse                 = useRef({ x: 0, y: 0 })
-  const activeSection         = useRef('inicio')
-  const timer                 = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const [target, setTarget] = useState<FormationKey>('sphere')
+  const mouse               = useRef({ x: 0, y: 0 })
+  const activeSection       = useRef('inicio')
+  const timer               = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
-  // Mouse tracking
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       mouse.current.x =  (e.clientX / window.innerWidth)  * 2 - 1
@@ -349,7 +349,6 @@ export default function AureumScene() {
     return () => window.removeEventListener('mousemove', onMove)
   }, [])
 
-  // Scroll: detect active section, trigger scatter → formation sequence
   useEffect(() => {
     const detect = (): string => {
       let found = activeSection.current
@@ -372,7 +371,7 @@ export default function AureumScene() {
 
       clearTimeout(timer.current)
       setTarget('scatter')
-      timer.current = setTimeout(() => setTarget(next), 700)
+      timer.current = setTimeout(() => setTarget(next), 650)
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -383,9 +382,10 @@ export default function AureumScene() {
   }, [])
 
   return (
+    // z-index: -1 → paints behind non-positioned elements (white sections cover it naturally)
     <div
       aria-hidden
-      style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0 }}
+      style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: -1 }}
     >
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
