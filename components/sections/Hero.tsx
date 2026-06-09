@@ -85,13 +85,13 @@ export default function Hero() {
         style={{ background: 'linear-gradient(to top, #0D0D0D, transparent)' }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-10 pt-28 pb-20">
+      <div className="relative z-50 max-w-7xl mx-auto w-full px-6 md:px-10 pt-28 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center min-h-[calc(100vh-7rem)]">
 
           {/* ── Text ── */}
           <motion.div
             variants={container}
-            initial="hidden"
+            initial="show"
             animate="show"
             style={{ y: contentY }}
           >
