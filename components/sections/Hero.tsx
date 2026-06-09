@@ -48,14 +48,14 @@ export default function Hero() {
       className="grain-overlay relative min-h-screen flex items-center overflow-hidden"
       style={{ background: 'radial-gradient(ellipse 80% 60% at 60% 50%, #1a1a1a 0%, #0D0D0D 65%)' }}
     >
+      <HeroBackground />
+
       {/* Cursor spotlight */}
       <div
         ref={spotlightRef}
         aria-hidden
         className="absolute inset-0 pointer-events-none transition-[background] duration-100 z-[1]"
       />
-
-      <HeroBackground />
 
       {/* Ambient gold radial glow */}
       <div
