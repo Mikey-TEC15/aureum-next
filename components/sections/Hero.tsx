@@ -75,89 +75,60 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center min-h-[calc(100vh-7rem)]">
 
           {/* ── Text ── */}
-          <motion.div style={{ y: contentY }}>
+          <div style={{ animation: 'none' }}>
             {/* Eyebrow */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0, ease: E }}
-              className="flex items-center gap-3 mb-8"
-            >
+            <div className="flex items-center gap-3 mb-8 hero-fade" style={{ animationDelay: '0ms' }}>
               <div className="w-7 h-px bg-gold" />
               <span className="font-body text-[0.65rem] tracking-[0.22em] uppercase text-gold font-medium">
                 Agencia de Marketing Digital Premium
               </span>
-            </motion.div>
+            </div>
 
             {/* H1 */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.12, ease: E }}
-              className="font-display font-bold text-white leading-[1.05] tracking-tightest mb-6"
-              style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)' }}
+            <h1
+              className="font-display font-bold text-white leading-[1.05] tracking-tightest mb-6 hero-fade"
+              style={{ fontSize: 'clamp(2.8rem, 5.5vw, 5rem)', animationDelay: '120ms' }}
             >
               Transformamos atención{' '}
               <em className="not-italic text-gold">en clientes.</em>
-            </motion.h1>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.24, ease: E }}
-              className="font-body text-white/50 leading-[1.8] mb-10 max-w-[44ch]"
-              style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.05rem)' }}
+            <p
+              className="font-body text-white/50 leading-[1.8] mb-10 max-w-[44ch] hero-fade"
+              style={{ fontSize: 'clamp(0.9rem, 1.4vw, 1.05rem)', animationDelay: '240ms' }}
             >
               Ayudamos a empresas a crecer mediante publicidad estratégica, automatización e innovación digital.
-            </motion.p>
+            </p>
 
             {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.36, ease: E }}
-              className="flex flex-wrap gap-4 items-center mb-14"
-            >
-              <MagneticButton strength={0.28}>
-              <motion.a
+            <div className="flex flex-wrap gap-4 items-center mb-14 hero-fade" style={{ animationDelay: '360ms' }}>
+              <a
                 href="#contacto"
-                whileTap={{ scale: 0.96 }}
-                transition={{ duration: 0.12, ease: E }}
                 className="inline-flex items-center gap-2 bg-gold text-ink font-body font-bold text-[0.82rem] uppercase tracking-[0.04em] px-7 py-4 rounded-[9px] hover:bg-gold-light transition-colors duration-200"
               >
                 Agendar Consulta
                 <ArrowRight size={14} strokeWidth={2.5} />
-              </motion.a>
-              </MagneticButton>
-              <MagneticButton strength={0.28}>
-              <motion.a
+              </a>
+              <a
                 href="https://wa.me/5534347955"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileTap={{ scale: 0.96 }}
-                transition={{ duration: 0.12, ease: E }}
-                className="inline-flex items-center gap-2 border border-white/12 text-white font-body font-medium text-[0.82rem] px-7 py-4 rounded-[9px] hover:border-white/25 hover:bg-white/5 transition-all duration-200"
+                className="inline-flex items-center gap-2 border border-white/20 text-white font-body font-medium text-[0.82rem] px-7 py-4 rounded-[9px] hover:border-white/40 hover:bg-white/5 transition-all duration-200"
               >
                 <MessageCircle size={14} strokeWidth={1.8} />
                 WhatsApp
-              </motion.a>
-              </MagneticButton>
-            </motion.div>
+              </a>
+            </div>
 
             {/* Social proof */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.48, ease: E }}
-              className="flex items-center gap-4 pt-6 border-t border-white/[0.05]"
-            >
+            <div className="flex items-center gap-4 pt-6 border-t border-white/[0.05] hero-fade" style={{ animationDelay: '480ms' }}>
               <div className="flex">
                 {['#9B2C2C', '#276749', '#1A4C8C', '#553C9A'].map((c, i) => (
                   <div
                     key={i}
                     className="w-7 h-7 rounded-full flex items-center justify-center text-[0.5rem] font-bold text-white border-2 border-[#0D0D0D]"
-                    style={{ background: c, marginLeft: i ? -8 : 0, zIndex: 4 - i }}
+                    style={{ background: c, marginLeft: i ? -8 : 0 }}
                   >
                     {['SR', 'AM', 'VT', 'RF'][i]}
                   </div>
@@ -175,8 +146,8 @@ export default function Hero() {
                   +50 empresas confían en Aureum
                 </p>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Right column — empty, background canvas fills it */}
           <div className="hidden lg:block" />
