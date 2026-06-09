@@ -1,82 +1,116 @@
 'use client'
-import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 
-const dots = [
-  { x: '62%', y: '18%', size: 2, opacity: 0.5, delay: 0 },
-  { x: '75%', y: '32%', size: 1.5, opacity: 0.35, delay: 0.8 },
-  { x: '55%', y: '55%', size: 2.5, opacity: 0.4, delay: 1.4 },
-  { x: '82%', y: '24%', size: 1.5, opacity: 0.3, delay: 0.4 },
-  { x: '88%', y: '62%', size: 2, opacity: 0.25, delay: 1.8 },
-  { x: '68%', y: '72%', size: 1.5, opacity: 0.3, delay: 2.2 },
-  { x: '92%', y: '42%', size: 1, opacity: 0.2, delay: 1.0 },
-  { x: '58%', y: '82%', size: 1.5, opacity: 0.2, delay: 2.6 },
-  { x: '78%', y: '80%', size: 1, opacity: 0.18, delay: 3.0 },
-  { x: '50%', y: '38%', size: 1, opacity: 0.22, delay: 0.6 },
-  { x: '95%', y: '20%', size: 1, opacity: 0.15, delay: 1.6 },
-  { x: '72%', y: '50%', size: 2, opacity: 0.28, delay: 2.0 },
-]
+interface Particle {
+  x: number
+  y: number
+  vx: number
+  vy: number
+  size: number
+  alpha: number
+  baseAlpha: number
+  phase: number
+  speed: number
+}
 
 export default function HeroBackground() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let animId: number
+    let W = 0
+    let H = 0
+    let particles: Particle[] = []
+
+    function resize() {
+      if (!canvas) return
+      W = canvas.width = canvas.offsetWidth
+      H = canvas.height = canvas.offsetHeight
+      build()
+    }
+
+    function build() {
+      particles = []
+      const count = Math.floor((W * H) / 9000)
+      for (let i = 0; i < count; i++) {
+        // Bias toward right half
+        const x = W * 0.42 + Math.random() * W * 0.62
+        const y = Math.random() * H
+        const a = 0.15 + Math.random() * 0.55
+        particles.push({
+          x,
+          y,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: -0.12 - Math.random() * 0.18,
+          size: 0.8 + Math.random() * 2.2,
+          alpha: a,
+          baseAlpha: a,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.4 + Math.random() * 0.8,
+        })
+      }
+    }
+
+    function draw(t: number) {
+      if (!canvas || !ctx) return
+      ctx.clearRect(0, 0, W, H)
+
+      // Glow orb — right center
+      const gx = W * 0.72
+      const gy = H * 0.48
+      const gr = Math.min(W, H) * 0.52
+      const grd = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr)
+      grd.addColorStop(0, 'rgba(212,175,55,0.22)')
+      grd.addColorStop(0.35, 'rgba(212,175,55,0.10)')
+      grd.addColorStop(0.7, 'rgba(212,175,55,0.03)')
+      grd.addColorStop(1, 'rgba(212,175,55,0)')
+      ctx.fillStyle = grd
+      ctx.fillRect(0, 0, W, H)
+
+      // Particles
+      for (const p of particles) {
+        const pulse = Math.sin(t * 0.001 * p.speed + p.phase) * 0.3
+        const a = Math.max(0, p.baseAlpha + pulse)
+        ctx.beginPath()
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(212,175,55,${a.toFixed(3)})`
+        ctx.shadowBlur = p.size * 4
+        ctx.shadowColor = `rgba(212,175,55,0.6)`
+        ctx.fill()
+        ctx.shadowBlur = 0
+
+        p.x += p.vx
+        p.y += p.vy
+        if (p.y < -4) p.y = H + 4
+        if (p.x < W * 0.35) p.x = W * 0.35
+        if (p.x > W + 4) p.x = W * 0.42
+      }
+
+      animId = requestAnimationFrame(draw)
+    }
+
+    const ro = new ResizeObserver(resize)
+    ro.observe(canvas)
+    resize()
+    animId = requestAnimationFrame(draw)
+
+    return () => {
+      cancelAnimationFrame(animId)
+      ro.disconnect()
+    }
+  }, [])
+
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Primary glow orb — large, soft, right-center */}
-      <motion.div
-        className="absolute"
-        style={{
-          right: '-5%',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: '55vw',
-          height: '55vw',
-          maxWidth: 820,
-          maxHeight: 820,
-          background: 'radial-gradient(circle, rgba(212,175,55,0.13) 0%, rgba(212,175,55,0.05) 35%, transparent 70%)',
-          borderRadius: '50%',
-        }}
-        animate={{ scale: [1, 1.06, 1], opacity: [0.8, 1, 0.8] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      {/* Secondary inner glow — tighter, brighter center */}
-      <motion.div
-        className="absolute"
-        style={{
-          right: '12%',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: '28vw',
-          height: '28vw',
-          maxWidth: 420,
-          maxHeight: 420,
-          background: 'radial-gradient(circle, rgba(212,175,55,0.09) 0%, transparent 65%)',
-          borderRadius: '50%',
-        }}
-        animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-      />
-
-      {/* Floating dots */}
-      {dots.map((dot, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            left: dot.x,
-            top: dot.y,
-            width: dot.size * 2,
-            height: dot.size * 2,
-            background: `rgba(212,175,55,${dot.opacity})`,
-            boxShadow: `0 0 ${dot.size * 4}px rgba(212,175,55,${dot.opacity * 0.8})`,
-          }}
-          animate={{ y: [0, -8, 0], opacity: [dot.opacity, dot.opacity * 0.4, dot.opacity] }}
-          transition={{
-            duration: 4 + i * 0.4,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay: dot.delay,
-          }}
-        />
-      ))}
-    </div>
+    <canvas
+      ref={canvasRef}
+      aria-hidden
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 0 }}
+    />
   )
 }
