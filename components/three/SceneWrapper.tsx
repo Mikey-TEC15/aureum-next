@@ -1,7 +1,6 @@
 'use client'
 import { Canvas } from '@react-three/fiber'
 import { Suspense, type RefObject } from 'react'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import ParticleEntity from './ParticleEntity'
 import { useMousePosition } from '@/hooks/useMousePosition'
 import ErrorBoundary from '@/components/ui/ErrorBoundary'
@@ -17,7 +16,7 @@ function Scene({ scrollProgress }: SceneWrapperProps) {
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 5], fov: 50 }}
+      camera={{ position: [1.5, 0, 6], fov: 55 }}
       gl={{
         antialias: true,
         alpha: true,
@@ -34,14 +33,6 @@ function Scene({ scrollProgress }: SceneWrapperProps) {
           mousePosition={mousePosition}
           scrollProgress={scrollProgress ?? staticProgress}
         />
-        <EffectComposer autoClear={false}>
-          <Bloom
-            luminanceThreshold={0.18}
-            luminanceSmoothing={0.92}
-            intensity={0.55}
-            mipmapBlur
-          />
-        </EffectComposer>
       </Suspense>
     </Canvas>
   )

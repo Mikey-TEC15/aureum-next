@@ -3,9 +3,9 @@ import { useRef, useMemo } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-const CORE_COUNT = 1400
-const MID_COUNT = 1900
-const OUTER_COUNT = 1100
+const CORE_COUNT = 800
+const MID_COUNT = 1200
+const OUTER_COUNT = 700
 const TOTAL = CORE_COUNT + MID_COUNT + OUTER_COUNT
 
 const vertexShader = `
@@ -59,7 +59,7 @@ const fragmentShader = `
     vec3 color = mix(uColorGold, uColorCore, vBrightness);
     color = mix(color, uColorRim, rim * vBrightness * 0.55);
 
-    float alpha = pow(body, 1.6) * vBrightness * 0.8 + core * vBrightness * 0.35;
+    float alpha = pow(body, 2.8) * vBrightness * 0.22 + core * vBrightness * 0.10;
 
     gl_FragColor = vec4(color, alpha);
   }
@@ -97,8 +97,8 @@ export default function ParticleEntity({ mousePosition, scrollProgress }: Partic
       positions[cursor * 3 + 1] = r * Math.cos(phi)
       positions[cursor * 3 + 2] = r * Math.sin(phi) * Math.sin(theta)
 
-      sizes[cursor] = Math.random() * 2.2 + 1.1
-      brightness[cursor] = Math.random() * 0.35 + 0.65
+      sizes[cursor] = Math.random() * 1.4 + 0.6
+      brightness[cursor] = Math.random() * 0.25 + 0.28
       phases[cursor] = Math.random() * Math.PI * 2
       layers[cursor] = 0
     }
@@ -113,8 +113,8 @@ export default function ParticleEntity({ mousePosition, scrollProgress }: Partic
       positions[cursor * 3 + 1] = r * Math.cos(phi) * 0.88
       positions[cursor * 3 + 2] = r * Math.sin(phi) * Math.sin(theta)
 
-      sizes[cursor] = Math.random() * 3.0 + 1.3
-      brightness[cursor] = Math.random() * 0.4 + 0.32
+      sizes[cursor] = Math.random() * 2.0 + 0.8
+      brightness[cursor] = Math.random() * 0.22 + 0.18
       phases[cursor] = Math.random() * Math.PI * 2
       layers[cursor] = 1
     }
@@ -129,8 +129,8 @@ export default function ParticleEntity({ mousePosition, scrollProgress }: Partic
       positions[cursor * 3 + 1] = r * Math.cos(phi) * 0.82
       positions[cursor * 3 + 2] = r * Math.sin(phi) * Math.sin(theta)
 
-      sizes[cursor] = Math.random() * 2.4 + 0.7
-      brightness[cursor] = Math.random() * 0.3 + 0.16
+      sizes[cursor] = Math.random() * 1.8 + 0.5
+      brightness[cursor] = Math.random() * 0.18 + 0.08
       phases[cursor] = Math.random() * Math.PI * 2
       layers[cursor] = 2
     }

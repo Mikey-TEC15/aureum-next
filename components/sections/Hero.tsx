@@ -68,6 +68,11 @@ export default function Hero() {
         className="absolute inset-0 pointer-events-none transition-[background] duration-100 z-[1]"
       />
 
+      {/* 3D particle background — full section, behind all content */}
+      <div aria-hidden className="absolute inset-0 pointer-events-none z-0">
+        <SceneWrapper scrollProgress={scrollProgress} />
+      </div>
+
       {/* Ambient gold radial glow */}
       <div
         aria-hidden
@@ -97,7 +102,7 @@ export default function Hero() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-10 pt-28 pb-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center">
+        <div className="flex items-center min-h-[calc(100vh-7rem)]">
 
           {/* ── Text ── */}
           <motion.div
@@ -105,6 +110,7 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             style={{ y: contentY }}
+            className="max-w-2xl"
           >
             {/* Eyebrow */}
             <motion.div
@@ -203,16 +209,6 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* ── 3D Entity ── */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.4, ease: E, delay: 0.3 }}
-            style={{ y: sphereY }}
-            className="relative h-[480px] lg:h-[620px] hidden lg:block"
-          >
-            <SceneWrapper scrollProgress={scrollProgress} />
-          </motion.div>
         </div>
       </div>
 
