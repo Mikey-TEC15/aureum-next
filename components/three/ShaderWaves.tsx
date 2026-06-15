@@ -29,37 +29,21 @@ const FRAG = /* glsl */ `
   void main() {
     vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
 
-    // Diagonal tilt; phase drift + amplitude tied to scroll.
-    float tilt  = 0.22 + uScrollVel * 0.5;
-    float amp   = yScale * (1.0 + uScrollVel * 2.5);
-    float ph    = time + uScroll * 3.0;            // scroll drives the drift
-    float baseY = p.y + p.x * tilt;                // stays centred → visible in every section
-
-    // Cursor interaction: the band bulges toward the pointer and a soft ripple
-    // radiates from it (very tight field).
+    // Background layer only — slow, opposite-tilted, faint. With the bright front
+    // band removed it stays out of the way of the content above it. Scroll still
+    // drives its drift and amplitude; a tight cursor ripple keeps it interactive.
     float md   = length(p - uMouse);
     float infl = exp(-md * md * 16.0);
-    baseY -= infl * 0.20;
-    baseY += infl * sin(md * 30.0 - time * 4.0) * 0.035;
 
-    // 3-way split rendered all-gold, dimmed.
-    float d  = length(p) * distortion;
-    float w1 = 0.05 / abs(baseY + sin((p.x * (1.0 + d) + ph) * xScale) * amp);
-    float w2 = 0.05 / abs(baseY + sin((p.x          + ph) * xScale) * amp);
-    float w3 = 0.05 / abs(baseY + sin((p.x * (1.0 - d) + ph) * xScale) * amp);
-    float wave = w1 + w2 + w3;
-
-    // Depth: a slower, opposite-tilted layer behind (scaled smaller → further),
-    // fainter — gives the field a sense of parallax.
     float bTilt  = -0.16 + uScrollVel * 0.3;
     float bAmp   = yScale * 0.8 * (1.0 + uScrollVel * 1.5);
     float bph    = time * 0.45 + uScroll * 1.6;
     float bBaseY = p.y * 1.35 + p.x * bTilt;
+    bBaseY += infl * sin(md * 30.0 - time * 4.0) * 0.03;   // soft ripple from cursor
     float back   = 0.05 / abs(bBaseY + sin((p.x * 0.85 + bph) * xScale) * bAmp);
 
     vec3 gold = vec3(0.831, 0.686, 0.216); // #D4AF37
-    vec3 col = gold * wave * 0.12;         // front layer — dimmed for less glare
-    col += gold * back * 0.14;             // back layer — fainter, adds depth
+    vec3 col = gold * back * 0.14;          // single faint background wave
     gl_FragColor = vec4(col, 1.0);
   }
 `

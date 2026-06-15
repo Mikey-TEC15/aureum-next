@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import MagneticButton from '@/components/ui/MagneticButton'
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton'
 import TextReveal from '@/components/motion/TextReveal'
 import { WA } from '@/lib/whatsapp'
 
@@ -282,18 +283,17 @@ export default function Contact() {
         {/* Bottom: "consult" primary CTA */}
         <motion.div {...fadeUp(0.38)} className="mt-14 text-center">
           <MagneticButton strength={0.22}>
-            <motion.a
+            <LiquidGlassButton
               href={WA.contact}
               target="_blank"
               rel="noopener noreferrer"
-              whileTap={{ scale: 0.96 }}
-              transition={{ duration: 0.12, ease: E }}
-              className="inline-flex items-center gap-2.5 bg-gold text-ink font-body font-bold uppercase px-9 py-4"
-              style={{ fontSize: '0.78rem', letterSpacing: '0.06em', borderRadius: 9 }}
+              variant="gold"
+              size="xl"
+              className="gap-2.5 font-bold uppercase tracking-[0.06em] text-[0.78rem]"
             >
               Agendar consulta gratuita
               <ArrowUpRight size={13} strokeWidth={2.5} />
-            </motion.a>
+            </LiquidGlassButton>
           </MagneticButton>
           <p className="font-body text-white/20 text-[0.65rem] mt-4 tracking-wide">
             Sin compromiso. Sin contratos a largo plazo.

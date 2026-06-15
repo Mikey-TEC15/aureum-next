@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton'
 import { WA } from '@/lib/whatsapp'
 
 const E = [0.23, 1, 0.32, 1] as const
@@ -79,18 +80,23 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="flex items-center gap-3">
-            <motion.a
-              href={WA.navbar}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.div
               initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, duration: 0.45, ease: E }}
-              className="hidden md:inline-flex pressable items-center gap-1.5 bg-gold text-ink label-sm font-semibold px-5 py-2.5 hover:bg-gold-light transition-colors duration-200"
-              style={{ borderRadius: 8 }}
+              className="hidden md:inline-flex"
             >
-              Consulta Gratis
-            </motion.a>
+              <LiquidGlassButton
+                href={WA.navbar}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="gold"
+                size="md"
+                className="gap-1.5 py-2.5"
+              >
+                Consulta Gratis
+              </LiquidGlassButton>
+            </motion.div>
             <button
               onClick={() => setOpen(true)}
               className="md:hidden text-white/60 hover:text-white p-1 transition-colors"

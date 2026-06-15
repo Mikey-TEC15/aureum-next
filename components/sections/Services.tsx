@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { useReveal } from '@/hooks/useReveal'
 import TextReveal from '@/components/motion/TextReveal'
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton'
 import { springs } from '@/lib/motion'
 import { WA } from '@/lib/whatsapp'
 
@@ -474,16 +475,17 @@ function MobilePanel({ service, open, onToggle }: { service: (typeof services)[0
                   {service.statLabel}
                 </span>
               </div>
-              <a
+              <LiquidGlassButton
                 href={SERVICE_WA[service.id]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-gold text-ink font-body font-semibold label-sm px-5 py-2.5 hover:bg-gold-light transition-colors duration-200"
-                style={{ borderRadius: 7, fontSize: '0.72rem' }}
+                variant="gold"
+                size="md"
+                className="py-2.5 text-[0.72rem]"
               >
                 Quiero este servicio
                 <ArrowRight size={12} strokeWidth={2.5} />
-              </a>
+              </LiquidGlassButton>
             </div>
           </motion.div>
         )}

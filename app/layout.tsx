@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar'
 import CustomCursor from '@/components/ui/CustomCursor'
 import SectionProgress from '@/components/SectionProgress'
 import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp'
+import { GlassFilter } from '@/components/ui/LiquidGlassButton'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -62,6 +63,7 @@ export default function RootLayout({
           <main>{children}</main>
           <FloatingWhatsApp />
         </LenisProvider>
+        <GlassFilter />
       </body>
     </html>
   )
