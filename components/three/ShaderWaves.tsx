@@ -58,7 +58,7 @@ const FRAG = /* glsl */ `
     float back   = 0.05 / abs(bBaseY + sin((p.x * 0.85 + bph) * xScale) * bAmp);
 
     vec3 gold = vec3(0.831, 0.686, 0.216); // #D4AF37
-    vec3 col = gold * wave * 0.3;          // front layer
+    vec3 col = gold * wave * 0.12;         // front layer — dimmed for less glare
     col += gold * back * 0.14;             // back layer — fainter, adds depth
     gl_FragColor = vec4(col, 1.0);
   }
