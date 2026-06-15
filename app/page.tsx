@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { AureumScene, Process } from '@/components/ClientSections'
+import { ShaderWaves, Process } from '@/components/ClientSections'
 
 // ── Critical path — SSR'd + above fold ──────────────────────────────────────
 import Hero           from '@/components/sections/Hero'
@@ -30,7 +30,7 @@ function LightToDark() {
 export default function Home() {
   return (
     <>
-      <AureumScene />
+      <ShaderWaves />
       <Hero />
       <MarqueeSection />
       <Benefits />
