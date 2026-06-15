@@ -94,7 +94,7 @@ export default function Contact() {
       data-formation="logo"
       ref={ref}
       className="grain-overlay relative py-[clamp(6rem,10vw,10rem)] px-6 md:px-10 overflow-hidden"
-      style={{ background: 'transparent' }}
+      style={{ background: 'linear-gradient(to bottom, transparent 0%, #0D0D0D 35%)' }}
     >
       {/* Ambient bottom glow */}
       <div
