@@ -24,24 +24,42 @@ const FRAG = /* glsl */ `
   uniform float distortion;
   uniform float uScroll;     // continuous: waves drift with scroll position
   uniform float uScrollVel;  // decaying: scrolling adds energy + steepens the tilt
+  uniform vec2  uMouse;      // cursor position in p-space; the band bends toward it
 
   void main() {
     vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
 
-    // Diagonal tilt (not flat horizontal), phase drift + amplitude tied to scroll.
+    // Diagonal tilt; phase drift + amplitude tied to scroll.
     float tilt  = 0.22 + uScrollVel * 0.5;
     float amp   = yScale * (1.0 + uScrollVel * 2.5);
     float ph    = time + uScroll * 3.0;            // scroll drives the drift
     float baseY = p.y + p.x * tilt;                // stays centred → visible in every section
 
-    // Keep the 3-way wave split (richer banding) but render ALL of it in one
-    // gold tone — no chromatic colour — and dimmer.
+    // Cursor interaction: the band bulges toward the pointer and a soft ripple
+    // radiates from it (very tight field).
+    float md   = length(p - uMouse);
+    float infl = exp(-md * md * 16.0);
+    baseY -= infl * 0.20;
+    baseY += infl * sin(md * 30.0 - time * 4.0) * 0.035;
+
+    // 3-way split rendered all-gold, dimmed.
     float d  = length(p) * distortion;
     float w1 = 0.05 / abs(baseY + sin((p.x * (1.0 + d) + ph) * xScale) * amp);
     float w2 = 0.05 / abs(baseY + sin((p.x          + ph) * xScale) * amp);
     float w3 = 0.05 / abs(baseY + sin((p.x * (1.0 - d) + ph) * xScale) * amp);
     float wave = w1 + w2 + w3;
-    vec3 col = vec3(0.831, 0.686, 0.216) * wave * 0.3; // #D4AF37, lower intensity
+
+    // Depth: a slower, opposite-tilted layer behind (scaled smaller → further),
+    // fainter — gives the field a sense of parallax.
+    float bTilt  = -0.16 + uScrollVel * 0.3;
+    float bAmp   = yScale * 0.8 * (1.0 + uScrollVel * 1.5);
+    float bph    = time * 0.45 + uScroll * 1.6;
+    float bBaseY = p.y * 1.35 + p.x * bTilt;
+    float back   = 0.05 / abs(bBaseY + sin((p.x * 0.85 + bph) * xScale) * bAmp);
+
+    vec3 gold = vec3(0.831, 0.686, 0.216); // #D4AF37
+    vec3 col = gold * wave * 0.3;          // front layer
+    col += gold * back * 0.14;             // back layer — fainter, adds depth
     gl_FragColor = vec4(col, 1.0);
   }
 `
@@ -70,6 +88,7 @@ export default function ShaderWaves() {
       distortion: { value: 0.06 },
       uScroll: { value: 0.0 },
       uScrollVel: { value: 0.0 },
+      uMouse: { value: new THREE.Vector2(0, 0) },
     }
     const material = new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG, uniforms })
     const geometry = new THREE.PlaneGeometry(2, 2)
@@ -90,6 +109,14 @@ export default function ShaderWaves() {
     const onScroll = () => { scrollAccum += Math.abs(window.scrollY - lastY); lastY = window.scrollY }
     window.addEventListener('scroll', onScroll, { passive: true })
 
+    // Cursor in p-space (matches the shader's normalised coords, y flipped).
+    const mouseTarget = new THREE.Vector2(0, 0)
+    const onMove = (e: MouseEvent) => {
+      const w = window.innerWidth, h = window.innerHeight, m = Math.min(w, h)
+      mouseTarget.set((e.clientX * 2 - w) / m, -((e.clientY * 2 - h) / m))
+    }
+    if (!IS_MOBILE) window.addEventListener('mousemove', onMove)
+
     let raf = 0
     const animate = () => {
       raf = requestAnimationFrame(animate)
@@ -98,6 +125,7 @@ export default function ShaderWaves() {
       const velTarget = Math.min(scrollAccum, 120) * 0.004
       uniforms.uScrollVel.value += (velTarget - uniforms.uScrollVel.value) * 0.12
       scrollAccum *= 0.85
+      uniforms.uMouse.value.lerp(mouseTarget, 0.08)
       renderer.render(scene, camera)
     }
     animate()
@@ -105,6 +133,7 @@ export default function ShaderWaves() {
     return () => {
       ro.disconnect()
       window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('mousemove', onMove)
       cancelAnimationFrame(raf)
       if (el.parentNode) el.parentNode.removeChild(el)
       geometry.dispose(); material.dispose(); renderer.dispose()
