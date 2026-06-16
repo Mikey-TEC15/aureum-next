@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import LiquidGlassButton from '@/components/ui/LiquidGlassButton'
+import { usePricing } from '@/components/pricing/PricingContext'
 import { WA } from '@/lib/whatsapp'
 
 const E = [0.23, 1, 0.32, 1] as const
@@ -17,6 +18,7 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { openPricing } = usePricing()
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60)
@@ -76,6 +78,17 @@ export default function Navbar() {
                 {l.label}
               </motion.a>
             ))}
+            {/* Precios — opens fullscreen overlay instead of scrolling */}
+            <motion.button
+              type="button"
+              onClick={openPricing}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.08 + links.length * 0.05, duration: 0.4, ease: E }}
+              className="gold-link label-sm text-gold/80 hover:text-gold transition-colors duration-200"
+            >
+              Precios
+            </motion.button>
           </nav>
 
           {/* CTA */}
@@ -145,6 +158,18 @@ export default function Navbar() {
                   {l.label}
                 </motion.a>
               ))}
+              {/* Precios — opens overlay */}
+              <motion.button
+                type="button"
+                initial={{ x: -18, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: links.length * 0.06, duration: 0.3, ease: E }}
+                onClick={() => { setOpen(false); openPricing() }}
+                className="font-display text-[2.2rem] font-bold text-gold py-3.5 border-b text-left hover:text-gold-light transition-colors duration-200"
+                style={{ borderColor: 'rgba(255,255,255,0.05)', letterSpacing: '-0.02em' }}
+              >
+                Precios
+              </motion.button>
             </nav>
             <div className="mt-auto">
               <a

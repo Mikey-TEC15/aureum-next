@@ -8,6 +8,7 @@ import CustomCursor from '@/components/ui/CustomCursor'
 import SectionProgress from '@/components/SectionProgress'
 import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp'
 import { GlassFilter } from '@/components/ui/LiquidGlassButton'
+import PricingProvider from '@/components/pricing/PricingContext'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -56,12 +57,14 @@ export default function RootLayout({
     >
       <body className="antialiased overflow-x-hidden" style={{ background: '#0D0D0D', color: '#ffffff' }}>
         <LenisProvider>
-          <CustomCursor />
-          <ScrollProgress />
-          <SectionProgress />
-          <Navbar />
-          <main>{children}</main>
-          <FloatingWhatsApp />
+          <PricingProvider>
+            <CustomCursor />
+            <ScrollProgress />
+            <SectionProgress />
+            <Navbar />
+            <main>{children}</main>
+            <FloatingWhatsApp />
+          </PricingProvider>
         </LenisProvider>
         <GlassFilter />
       </body>
