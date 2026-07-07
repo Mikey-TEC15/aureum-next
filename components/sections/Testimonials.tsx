@@ -14,7 +14,7 @@ const testimonials = [
     sector: 'Salud',
     initials: 'SR',
     accent: '#9B2C2C',
-    result: '+487%',
+    result: '+175%',
     resultLabel: 'citas / mes',
   },
   {
@@ -25,7 +25,7 @@ const testimonials = [
     sector: 'Retail',
     initials: 'AM',
     accent: '#276749',
-    result: '$180K',
+    result: '$45K',
     resultLabel: 'en ventas / mes',
   },
   {
@@ -36,7 +36,7 @@ const testimonials = [
     sector: 'Real Estate',
     initials: 'VT',
     accent: '#1A4C8C',
-    result: '3.1×',
+    result: '1.8×',
     resultLabel: 'tasa de cierre',
   },
   {
@@ -47,7 +47,7 @@ const testimonials = [
     sector: 'Logística',
     initials: 'RF',
     accent: '#553C9A',
-    result: '−73%',
+    result: '−40%',
     resultLabel: 'ciclo de venta',
   },
 ]
