@@ -4,7 +4,7 @@ import { useReveal } from '@/hooks/useReveal'
 import { springs } from '@/lib/motion'
 
 const links = {
-  Servicios: ['Meta Ads', 'Generación de Leads', 'Desarrollo Web', 'Automatización IA'],
+  Servicios: ['Meta Ads', 'Generación de Leads', 'Desarrollo Web'],
   Empresa:   ['Proceso', 'Casos de Éxito', 'Testimonios', 'FAQ'],
   Contacto:  ['WhatsApp', 'Instagram', 'Email'],
 }

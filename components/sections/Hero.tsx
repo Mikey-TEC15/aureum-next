@@ -105,7 +105,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...springs.smooth, delay: 0.46 }}
             >
-              Ayudamos a empresas a crecer mediante publicidad estratégica, automatización e innovación digital.
+              Ayudamos a empresas a crecer mediante publicidad estratégica e innovación digital.
             </motion.p>
 
             {/* CTAs */}

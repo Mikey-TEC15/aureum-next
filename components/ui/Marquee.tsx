@@ -47,7 +47,7 @@ const stats = [
 
 const tags = [
   'Meta Ads', 'Lead Generation', 'Desarrollo Web',
-  'Automatización IA', 'Email Marketing', 'CRM Automation',
+  'Email Marketing',
   'Google Ads', 'Analítica Avanzada', 'Funnel Strategy',
 ]
 

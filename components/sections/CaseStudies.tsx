@@ -23,7 +23,7 @@ const cases = [
     client: 'E-commerce de Moda',
     sector: 'Retail',
     headline: 'Retargeting dinámico que convirtió carritos abandonados en ventas.',
-    body: 'Automatización completa del embudo con segmentación por comportamiento. 60 días para escalar de $12K a $45K en ventas mensuales.',
+    body: 'Retargeting dinámico con segmentación por comportamiento. 60 días para escalar de $12K a $45K en ventas mensuales.',
     metrics: [
       { value: '45', prefix: '$', suffix: 'K', label: 'en ventas / mes' },
       { value: '19', suffix: '%', label: 'recuperación de carritos' },

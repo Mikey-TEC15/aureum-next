@@ -39,17 +39,6 @@ const testimonials = [
     result: '1.8×',
     resultLabel: 'tasa de cierre',
   },
-  {
-    quote: 'La automatización que implementaron cambió cómo trabajamos internamente. El CRM ahora hace el trabajo que antes hacían tres personas.',
-    author: 'Rafael Fuentes',
-    role: 'Director Comercial',
-    company: 'LogiMex',
-    sector: 'Logística',
-    initials: 'RF',
-    accent: '#553C9A',
-    result: '−40%',
-    resultLabel: 'ciclo de venta',
-  },
 ]
 
 const DURATION = 6200

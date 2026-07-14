@@ -12,7 +12,6 @@ const SERVICE_WA: Record<string, string> = {
   leads: WA.leads,
   meta:  WA.meta,
   web:   WA.web,
-  ai:    WA.ai,
 }
 
 const E = [0.23, 1, 0.32, 1] as const
@@ -185,54 +184,6 @@ function WebVisual({ active }: { active: boolean }) {
   )
 }
 
-function AIVisual({ active }: { active: boolean }) {
-  const nodes = [
-    { cx: 60, cy: 20 },
-    { cx: 100, cy: 45 },
-    { cx: 100, cy: 80 },
-    { cx: 60, cy: 105 },
-    { cx: 20, cy: 80 },
-    { cx: 20, cy: 45 },
-  ]
-  const edges = [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[0,3],[1,4],[2,5]]
-
-  return (
-    <svg viewBox="0 0 120 125" fill="none" className="w-full max-w-[140px]" aria-hidden>
-      {edges.map(([a, b], i) => (
-        <motion.line
-          key={i}
-          x1={nodes[a].cx} y1={nodes[a].cy}
-          x2={nodes[b].cx} y2={nodes[b].cy}
-          stroke="#D4AF37"
-          strokeWidth={0.8}
-          initial={{ opacity: 0 }}
-          animate={active ? { opacity: [0, 0.35, 0.12] } : { opacity: 0 }}
-          transition={
-            active
-              ? { duration: 2.4, delay: i * 0.12, repeat: Infinity, ease: 'easeInOut' }
-              : { duration: 0.2 }
-          }
-        />
-      ))}
-      {nodes.map((n, i) => (
-        <motion.circle
-          key={i}
-          cx={n.cx} cy={n.cy} r={5}
-          fill="#D4AF37"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={active ? { scale: [1, 1.35, 1], opacity: [0.7, 1, 0.7] } : { scale: 0, opacity: 0 }}
-          style={{ originX: `${n.cx}px`, originY: `${n.cy}px` }}
-          transition={
-            active
-              ? { duration: 2, delay: i * 0.18, repeat: Infinity, ease: 'easeInOut' }
-              : { duration: 0.2 }
-          }
-        />
-      ))}
-    </svg>
-  )
-}
-
 // ── Data ────────────────────────────────────────────────────────────────────
 
 const services = [
@@ -266,16 +217,6 @@ const services = [
     statLabel: 'conversión web',
     Visual: WebVisual,
   },
-  {
-    id: 'ai',
-    num: '04',
-    titleLine1: 'Automatización',
-    titleLine2: 'con IA',
-    description: 'Flujos inteligentes que trabajan 24/7. Chatbots, CRM automatizado, email personalizado y nurturing sin intervención manual.',
-    stat: '24/7',
-    statLabel: 'sistemas activos',
-    Visual: AIVisual,
-  },
 ]
 
 // ── Panel ────────────────────────────────────────────────────────────────────
@@ -299,7 +240,7 @@ function ServicePanel({
       style={{
         flex: active ? '5 0 0%' : '1 0 0%',
         transition: `flex 0.65s cubic-bezier(0.23, 1, 0.32, 1)`,
-        borderRight: index < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+        borderRight: index < services.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
         minHeight: '520px',
       }}
       onMouseEnter={onEnter}
@@ -500,7 +441,6 @@ const SERVICE_FORMATIONS: Record<string, string> = {
   leads: 'network',
   meta:  'flow',
   web:   'grid',
-  ai:    'neural',
 }
 
 export default function Services() {

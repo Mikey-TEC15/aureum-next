@@ -26,8 +26,8 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Aureum Studio — Marketing Digital Premium',
   description:
-    'Leads calificados, Meta Ads con ROAS real, desarrollo web de alta conversión y automatización con IA. Todo en un solo estudio con foco en resultados.',
-  keywords: ['marketing digital', 'meta ads', 'generación de leads', 'automatización IA', 'agencia premium'],
+    'Leads calificados, Meta Ads con ROAS real y desarrollo web de alta conversión. Todo en un solo estudio con foco en resultados.',
+  keywords: ['marketing digital', 'meta ads', 'generación de leads', 'desarrollo web', 'agencia premium'],
   openGraph: {
     title: 'Aureum Studio — Marketing Digital Premium',
     description: 'Resultados medibles. Sin excusas.',
