@@ -9,7 +9,7 @@ const E = [0.23, 1, 0.32, 1] as const
 const faqs = [
   {
     q: '¿Cuánto tiempo tarda en verse resultados?',
-    a: 'Las primeras señales (leads, tráfico cualificado, datos de campaña) llegan en la primera semana. Resultados significativos y medibles en 30-60 días. Escalamiento real en 90 días.',
+    a: 'Las primeras señales (leads, tráfico cualificado, datos de campaña) llegan en la primera semana. Resultados significativos y medibles en 15-30 días. Escalamiento real en 60 días.',
   },
   {
     q: '¿Trabajamos con contrato o mes a mes?',
