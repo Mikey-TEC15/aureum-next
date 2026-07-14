@@ -351,7 +351,7 @@ export default function Testimonials() {
             {/* Footer trust + CTA */}
             <div className="mt-8 pt-6" style={{ borderTop: '1px solid rgba(17,17,17,0.06)' }}>
               <p className="font-body text-ink/30 mb-5" style={{ fontSize: '0.68rem', letterSpacing: '0.02em', lineHeight: 1.6 }}>
-                +50 empresas confían sus resultados a Aureum.
+                +47 empresas confían sus resultados a Aureum.
               </p>
               <a
                 href={WA.benefits}

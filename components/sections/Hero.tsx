@@ -182,7 +182,7 @@ export default function Hero() {
                   ))}
                 </div>
                 <p className="font-body" style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', letterSpacing: '0.02em' }}>
-                  +50 empresas confían en Aureum
+                  +47 empresas confían en Aureum
                 </p>
               </div>
             </motion.div>
