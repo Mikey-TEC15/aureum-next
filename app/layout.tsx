@@ -1,14 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
-import LenisProvider from '@/components/LenisProvider'
-import ScrollProgress from '@/components/ScrollProgress'
-import Navbar from '@/components/Navbar'
-import CustomCursor from '@/components/ui/CustomCursor'
-import SectionProgress from '@/components/SectionProgress'
-import FloatingWhatsApp from '@/components/ui/FloatingWhatsApp'
 import { GlassFilter } from '@/components/ui/LiquidGlassButton'
-import PricingProvider from '@/components/pricing/PricingContext'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -56,16 +49,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="antialiased overflow-x-hidden" style={{ background: '#0D0D0D', color: '#ffffff' }}>
-        <LenisProvider>
-          <PricingProvider>
-            <CustomCursor />
-            <ScrollProgress />
-            <SectionProgress />
-            <Navbar />
-            <main>{children}</main>
-            <FloatingWhatsApp />
-          </PricingProvider>
-        </LenisProvider>
+        {children}
         <GlassFilter />
       </body>
     </html>

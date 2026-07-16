@@ -100,6 +100,20 @@ body {
   z-index: 1;
 }
 
+/* Grano del deck — versión para video.
+   El grano del sitio (0.028) se ve precioso en pantalla pero destroza la
+   compresión de YouTube: el codec gasta el bitrate en codificar ruido y
+   los degradados salen en bloques. Aquí va a un tercio, y sin blend mode
+   para que no repinte en cada frame durante la captura. */
+.deck-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.010;
+  pointer-events: none;
+}
+
 /* Typography baseline */
 h1, h2, h3 {
   text-wrap: balance;
