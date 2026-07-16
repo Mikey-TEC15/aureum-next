@@ -86,7 +86,7 @@ export const SLIDES: Slide[] = [
     steps: 3,
     Component: S8Cierre,
     notes:
-      'Así que la pregunta es simple: ¿cuántos clientes más vas a dejar que se lleve tu competencia? [→] Si te interesa, escríbeme por WhatsApp con dos palabras: "Quiero Probar". Te respondo enseguida con los siguientes pasos y lo armamos hoy mismo. [→] Y te voy a ser honesto sobre por qué te conviene entrar ahora: estoy tomando solamente 3 clientes este mes, porque quiero darle a cada campaña el 100% de mi atención y conseguir resultados que valga la pena presumir. Eso significa que vas a tener a alguien que necesita que tu campaña funcione tanto como tú.',
+      'Así que la pregunta es simple: ¿cuántos clientes más vas a dejar que se lleve tu competencia? [→] Si te interesa, escríbeme por WhatsApp con dos palabras: "Quiero Probar". Te respondo enseguida con los siguientes pasos y lo armamos hoy mismo. [→] Porque esto es lo que está en juego: tus primeros clientes están a solo 72 horas de distancia.',
   },
 ]
 

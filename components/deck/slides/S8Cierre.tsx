@@ -41,11 +41,14 @@ export default function S8Cierre({ step }: SlideProps) {
           </Beat>
 
           <Beat at={2} step={step}>
-            <div style={{ borderLeft: '1px solid rgba(212,175,55,0.4)', paddingLeft: 26, maxWidth: '48ch' }}>
-              <p className="font-body" style={{ fontSize: 19, lineHeight: 1.65, color: 'rgba(255,255,255,0.78)' }}>
-                Estoy tomando solamente{' '}
-                <span className="text-gold nums" style={{ fontWeight: 600 }}>3 clientes</span> este mes, para
-                poder darle a cada campaña el 100% de mi atención.
+            <div style={{ borderLeft: '1px solid rgba(212,175,55,0.4)', paddingLeft: 26 }}>
+              <p className="font-body" style={{ fontSize: 22, lineHeight: 1.6, color: 'rgba(255,255,255,0.85)' }}>
+                Tus primeros clientes están a solo{' '}
+                {/* nowrap: "72 horas" nunca debe partirse entre dos líneas */}
+                <span className="text-gold nums" style={{ fontWeight: 600, whiteSpace: 'nowrap' }}>
+                  72 horas
+                </span>{' '}
+                de distancia.
               </p>
             </div>
           </Beat>
