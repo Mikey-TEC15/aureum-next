@@ -38,9 +38,11 @@ export default function S2Problema({ step }: SlideProps) {
       />
 
       <div className="relative">
+        {/* Los saltos de línea ya son explícitos: un maxWidth estrecho solo
+            consigue partir "El problema al que se enfrenta" por la mitad. */}
         <h2
           className="font-display font-bold text-white tracking-tighter"
-          style={{ fontSize: 60, lineHeight: 1.1, marginBottom: 56, maxWidth: '20ch' }}
+          style={{ fontSize: 60, lineHeight: 1.1, marginBottom: 56, maxWidth: 1000 }}
         >
           <TextReveal text="El problema al que se enfrenta" mode="word" immediate style={{ display: 'block' }} />
           <TextReveal text="la mayoría de los negocios" mode="word" immediate delay={0.14} style={{ display: 'block' }} />

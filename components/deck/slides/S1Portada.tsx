@@ -44,15 +44,17 @@ export default function S1Portada({ step }: SlideProps) {
           style={{ fontSize: 104, lineHeight: 1.04, marginBottom: 40 }}
         >
           <TextReveal text="Tu negocio puede crecer" mode="word" immediate delay={0.25} style={{ display: 'block' }} />
+          {/* El espacio va como margen: un espacio dentro del texto le crea
+              a TextReveal una palabra vacía y sangra la línea. */}
           <TextReveal
             text="más rápido"
             mode="word"
             immediate
             delay={0.42}
             className="text-gold"
-            style={{ display: 'inline-block' }}
+            style={{ display: 'inline-block', marginRight: '0.26em' }}
           />
-          <TextReveal text=" de lo que piensas" mode="word" immediate delay={0.5} style={{ display: 'inline-block' }} />
+          <TextReveal text="de lo que piensas" mode="word" immediate delay={0.5} style={{ display: 'inline-block' }} />
         </h1>
 
         <Beat at={0} step={step} delay={0.85}>

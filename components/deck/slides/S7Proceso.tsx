@@ -76,7 +76,9 @@ export default function S7Proceso({ step }: SlideProps) {
                 key={p.title}
                 style={{ display: 'grid', gridTemplateRows: `${LABEL_H}px ${DOT_ROW}px ${LABEL_H}px` }}
               >
-                <div style={{ alignSelf: 'end', paddingBottom: 22, paddingRight: 28 }}>
+                {/* El nodo va centrado en su columna, así que la etiqueta
+                    también: alineada a la izquierda quedaba corrida medio paso. */}
+                <div style={{ alignSelf: 'end', padding: '0 14px 22px', textAlign: 'center' }}>
                   {arriba && <Etiqueta paso={p} index={i} step={step} />}
                 </div>
 
@@ -93,7 +95,7 @@ export default function S7Proceso({ step }: SlideProps) {
                   />
                 </div>
 
-                <div style={{ alignSelf: 'start', paddingTop: 22, paddingRight: 28 }}>
+                <div style={{ alignSelf: 'start', padding: '22px 14px 0', textAlign: 'center' }}>
                   {!arriba && <Etiqueta paso={p} index={i} step={step} />}
                 </div>
               </div>
