@@ -13,6 +13,7 @@ export const WA = {
   contact:  wa('Hola Aureum Studio, quiero agendar una consulta gratuita 👋'),
   floating: wa('Hola Aureum Studio 👋 Quiero información sobre sus servicios'),
   navbar:   wa('Hola Aureum Studio, quiero una consulta gratuita 👋'),
+  analisis: wa('Hola, vi el análisis que me prepararon y quiero saber más 👋'),
   // Pricing plans
   pricingLaunch: wa('Hola Aureum Studio, me interesa el plan Aureum Launch ($297/mes). Quiero agendar una llamada estratégica 👋'),
   pricingGrowth: wa('Hola Aureum Studio, me interesa el plan Aureum Growth ($697/mes). Quiero agendar una llamada estratégica 🚀'),
