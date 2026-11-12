@@ -15,7 +15,7 @@ export const WA = {
   navbar:   wa('Hola Aureum Studio, quiero una consulta gratuita 👋'),
   analisis: wa('Hola, vi el análisis que me prepararon y quiero saber más 👋'),
   // Pricing plans
-  pricingLaunch: wa('Hola Aureum Studio, me interesa el plan Aureum Launch ($297/mes). Quiero agendar una llamada estratégica 👋'),
-  pricingGrowth: wa('Hola Aureum Studio, me interesa el plan Aureum Growth ($697/mes). Quiero agendar una llamada estratégica 🚀'),
-  pricingScale:  wa('Hola Aureum Studio, me interesa el plan Aureum Scale ($1,500/mes). Quiero agendar una llamada estratégica 📈'),
+  pricingLaunch: wa('Hola Aureum Studio, me interesa el plan Aureum Launch ($5,900 MXN/mes). Quiero agendar una llamada estratégica 👋'),
+  pricingGrowth: wa('Hola Aureum Studio, me interesa el plan Aureum Growth ($12,900 MXN/mes). Quiero agendar una llamada estratégica 🚀'),
+  pricingScale:  wa('Hola Aureum Studio, me interesa el plan Aureum Scale (desde $27,900 MXN/mes). Quiero agendar una llamada estratégica 📈'),
 }
