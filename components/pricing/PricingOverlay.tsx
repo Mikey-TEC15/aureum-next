@@ -19,6 +19,8 @@ interface Plan {
   index: string
   name: string
   tagline: string
+  /** Pequeño rótulo antes del precio (ej. "Desde"). */
+  prefix?: string
   price: string
   period: string
   features: string[]
@@ -32,14 +34,14 @@ const PLANS: Plan[] = [
     index: 'I',
     name: 'Aureum Launch',
     tagline: 'Get Your First Consistent Leads',
-    price: '$297',
-    period: 'USD / mes',
+    price: '$5,900',
+    period: 'MXN / mes',
     features: [
-      'Gestión de Meta Ads',
-      'Optimización de campañas',
+      'Gestión de Meta Ads (Facebook + Instagram)',
       'Estrategia de generación de leads',
+      'Optimización continua de campañas',
+      'Leads directo a tu WhatsApp',
       'Reporte mensual',
-      'Ruteo de leads por WhatsApp',
     ],
     wa: WA.pricingLaunch,
   },
@@ -47,17 +49,17 @@ const PLANS: Plan[] = [
     id: 'growth',
     index: 'II',
     name: 'Aureum Growth',
-    tagline: 'Build a Predictable Customer Acquisition System',
-    price: '$697',
-    period: 'USD / mes',
+    tagline: 'Build a Complete Customer Acquisition System',
+    price: '$12,900',
+    period: 'MXN / mes',
     featured: true,
     features: [
       'Todo lo de Launch',
-      'Landing page de alta conversión',
-      'Setup de píxel y tracking',
-      'Producción creativa profesional',
-      'Distribución de leads por WhatsApp',
-      'Optimización semanal',
+      'Landing page profesional, diseñada para convertir',
+      'Hosting y mantenimiento de tu página incluidos',
+      'Setup de píxel y seguimiento de conversiones',
+      'Producción creativa (hasta 6 piezas / mes)',
+      'Optimización semanal + reporte de resultados',
     ],
     wa: WA.pricingGrowth,
   },
@@ -66,12 +68,13 @@ const PLANS: Plan[] = [
     index: 'III',
     name: 'Aureum Scale',
     tagline: 'Scale With Performance Marketing',
-    price: '$1,500',
-    period: 'USD / mes',
+    prefix: 'Desde',
+    price: '$27,900',
+    period: 'MXN / mes',
     features: [
       'Todo lo de Growth',
-      'Estrategia de crecimiento multi-canal',
-      'Integración con CRM',
+      'Estrategia de crecimiento multicanal',
+      'Integración y automatización de CRM',
       'Optimización del pipeline de ventas',
       'Reportería avanzada',
       'Consultoría estratégica',
@@ -230,6 +233,11 @@ function PlanCard({
 
           {/* Price */}
           <div className="flex items-baseline gap-1.5">
+            {plan.prefix && (
+              <span className="font-body text-white/40" style={{ fontSize: '0.8rem' }}>
+                {plan.prefix}
+              </span>
+            )}
             <span
               className="font-display font-bold text-white nums"
               style={{ fontSize: 'clamp(2.1rem, 3.4vw, 2.9rem)', letterSpacing: '-0.03em' }}
@@ -485,9 +493,17 @@ export default function PricingOverlay({
               ))}
             </div>
 
+            {/* Clarificación de alcance */}
+            <p
+              className="text-center font-body text-white/35 mt-12 mx-auto"
+              style={{ fontSize: '0.75rem', lineHeight: 1.6, maxWidth: '52ch' }}
+            >
+              Implementación inicial, inversión en Meta Ads y dominio se cotizan por separado.
+            </p>
+
             {/* Footer note */}
             <p
-              className="text-center font-body text-white/30 mt-12"
+              className="text-center font-body text-white/30 mt-4"
               style={{ fontSize: '0.72rem', letterSpacing: '0.04em' }}
             >
               Sin permanencia · Cancela cuando quieras ·{' '}
